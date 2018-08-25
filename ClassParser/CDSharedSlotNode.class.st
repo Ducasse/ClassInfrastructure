@@ -1,10 +1,6 @@
 Class {
 	#name : #CDSharedSlotNode,
-	#superclass : #Object,
-	#instVars : [
-		'slot',
-		'node'
-	],
+	#superclass : #CDSlotNode,
 	#category : #ClassParser
 }
 
@@ -15,20 +11,4 @@ CDSharedSlotNode class >> slot: aSlot node: aNode [
 		slot: aSlot;
 		node: aNode;
 		yourself
-]
-
-{ #category : #accessing }
-CDSharedSlotNode >> name [
-
-	^ slot name
-]
-
-{ #category : #accessing }
-CDSharedSlotNode >> node: aNode [ 
-	node := aNode
-]
-
-{ #category : #accessing }
-CDSharedSlotNode >> slot: aSharedSlot [ 
-	slot := aSharedSlot
 ]

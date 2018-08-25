@@ -23,10 +23,19 @@ CDClassParser >> className: aNode [
 { #category : #accessing }
 CDClassParser >> classVariableNames: aNode [ 
 	
-	| sharedSlots sharedSlotsNodes |
-	sharedSlots := aNode value substrings collect: [ :each | ClassVariable named: each ].
-	sharedSlotsNodes := sharedSlots collect: [ :each | CDSharedSlotNode slot: each node: aNode ].
-	classDefinition sharedSlots: sharedSlotsNodes
+	| slots slotNodes classVariablesString |
+	classVariablesString := aNode value.
+	slots := classVariablesString substrings.
+	slotNodes := slots
+		collect: [ :slotName | | start |
+			start := aNode start + (classVariablesString findString: slotName).
+			CDSharedSlotNode
+				node: aNode
+				name: slotName
+				typeName: 'ClassVariableSlot'
+				start: start
+				stop: start + slotName size ].
+	classDefinition sharedSlots: slotNodes
 ]
 
 { #category : #initialization }

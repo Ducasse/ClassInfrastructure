@@ -143,7 +143,8 @@ CDClassDefinition >> sharedSlots [
 
 { #category : #accessing }
 CDClassDefinition >> sharedSlots: aCollection [ 
-	sharedSlotNodes := aCollection
+	sharedSlotNodes := aCollection.
+	children addAll: aCollection
 ]
 
 { #category : #accessing }

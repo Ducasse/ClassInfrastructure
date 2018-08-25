@@ -77,6 +77,19 @@ CDClassParserTest >> testBestNodeForClassNameSelectionShouldBeClassNameNode [
 ]
 
 { #category : #tests }
+CDClassParserTest >> testBestNodeForClassVariableSelectionShouldBeClassSlotNode [
+
+	| definition selectedNode start selection |
+	definition := CDClassParser parse: self classDefinitionString.
+	
+	start := self firstClassVariableIndex.
+	selection := start to: start.
+	
+	selectedNode := definition bestNodeFor: selection.
+	self assert: selectedNode equals: definition sharedSlots first
+]
+
+{ #category : #tests }
 CDClassParserTest >> testBestNodeForInstanceVariableSelectionShouldBeSlotNode [
 
 	| definition selectedNode start selection |
