@@ -31,6 +31,14 @@ Class {
 	#category : #ClassParser
 }
 
+{ #category : #parsing }
+ClassParser class >> parse: aString [ 
+	
+	^ self new
+		parse: aString;
+		definition
+]
+
 { #category : #accessing }
 ClassParser >> bindings [
 	"define the previously created entities that the new class should refer to instead of creating new entities."
