@@ -79,6 +79,22 @@ CDClassParser >> parse: aString [
 	^ classDefinition
 ]
 
+{ #category : #accessing }
+CDClassParser >> parsePoolDictionariesFromNode: aNode [
+	| shareds sharedPoolNodes sharedPoolString |
+	sharedPoolString := aNode value.
+	shareds := sharedPoolString substrings.
+	sharedPoolNodes := shareds
+		collect: [ :slotName | | start |
+			start := aNode start + (sharedPoolString findString: slotName).
+			CDSharedPoolNode
+				node: aNode
+				name: slotName
+				start: start
+				stop: start + slotName size ].
+	classDefinition sharedPools: sharedPoolNodes
+]
+
 { #category : #parsing }
 CDClassParser >> parseSelectorPart: aString withArgument: aNode [ 
 	
@@ -97,7 +113,8 @@ CDClassParser >> parseSelectorPart: aString withArgument: aNode [
 		ifTrue: [ ^ self package: aNode ].
 	aString =	 #uses:
 		ifTrue: [ ^ self parseTraitDefinitionFromNode: aNode ].
-	
+	aString =	 #poolDictionaries:
+		ifTrue: [ ^ self parsePoolDictionariesFromNode: aNode ].
 	self halt.
 ]
 

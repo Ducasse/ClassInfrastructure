@@ -10,7 +10,8 @@ Class {
 		'slotNodes',
 		'superclassNameNode',
 		'packageNameNode',
-		'classDefinitionNodes'
+		'classDefinitionNodes',
+		'sharedPools'
 	],
 	#category : #ClassParser
 }
@@ -123,6 +124,12 @@ CDClassDefinition >> packageNameNode: aNode astNode: astNode [
 	packageNameNode := aNode.
 	children add: aNode.
 	classDefinitionNodes at: astNode put: aNode
+]
+
+{ #category : #accessing }
+CDClassDefinition >> sharedPools: aCollection [ 
+	sharedPools := aCollection.
+	children addAll: aCollection
 ]
 
 { #category : #accessing }

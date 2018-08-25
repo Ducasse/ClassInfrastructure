@@ -1,4 +1,5 @@
 "
+| code |
 code := Point definitionForNautilus.
 
 TextModel new
