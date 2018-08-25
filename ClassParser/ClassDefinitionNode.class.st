@@ -6,7 +6,8 @@ Class {
 		'instanceVariableNodes',
 		'classVariableNodes',
 		'kind',
-		'superclassName'
+		'superclassName',
+		'selector'
 	],
 	#category : #ClassParser
 }

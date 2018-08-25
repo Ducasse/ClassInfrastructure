@@ -26,6 +26,6 @@ ClassParser >> parse: aString [
 	tokens := Parser new scanTokens: aString.
 	self definition superclassName: tokens first.
 	self definition name: tokens third. 
-	self definition message: tokens selectEverySecond 
+	self definition selectorParts: tokens selectEverySecond 
 	 
 ]
