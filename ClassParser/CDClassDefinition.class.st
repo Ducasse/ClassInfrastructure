@@ -1,6 +1,6 @@
 Class {
 	#name : #CDClassDefinition,
-	#superclass : #Object,
+	#superclass : #CDNode,
 	#instVars : [
 		'definitionExpressionTree',
 		'subclass',
@@ -10,7 +10,8 @@ Class {
 		'slotNodes',
 		'superclassNameNode',
 		'packageNameNode',
-		'classDefinitionNodes'
+		'classDefinitionNodes',
+		'children'
 	],
 	#category : #ClassParser
 }
@@ -24,12 +25,30 @@ CDClassDefinition class >> on: aRBMessageNode [
 ]
 
 { #category : #selection }
-CDClassDefinition >> bestNodeFor: aSelection [
+CDClassDefinition >> bestNodeFor: anInterval [ 
+	| selectedChildren |
+	(self intersectsInterval: anInterval) ifFalse: [^nil].
+	(self containedBy: anInterval) ifTrue: [^self].
+	selectedChildren := self children 
+				select: [:each | each intersectsInterval: anInterval].
+	^selectedChildren size == 1 
+		ifTrue: [selectedChildren first bestNodeFor: anInterval]
+		ifFalse: [self]
+]
+
+{ #category : #selection }
+CDClassDefinition >> bestNodeForOld: aSelection [
 	
 	| originalNodeSelected selectedClassDefinitionNode |
 	originalNodeSelected := definitionExpressionTree bestNodeFor: aSelection.
 	selectedClassDefinitionNode := classDefinitionNodes at: originalNodeSelected.
 	^ selectedClassDefinitionNode
+]
+
+{ #category : #selection }
+CDClassDefinition >> children [
+
+	^ children
 ]
 
 { #category : #introspection }
@@ -45,16 +64,16 @@ CDClassDefinition >> classNameNode [
 ]
 
 { #category : #accessing }
-CDClassDefinition >> classNameNode: aNode [
-
-	classNameNode := aNode
-]
-
-{ #category : #accessing }
 CDClassDefinition >> classNameNode: aNode astNode: astNode [
 
 	classNameNode := aNode.
-	classDefinitionNodes at: astNode put: aNode
+	children add: aNode.
+	classDefinitionNodes at: astNode put: aNode.
+]
+
+{ #category : #selection }
+CDClassDefinition >> containedBy: anInterval [ 
+	^anInterval first <= self start and: [anInterval last >= self stop]
 ]
 
 { #category : #accessing }
@@ -67,10 +86,17 @@ CDClassDefinition >> definitionExpressionTree: aRBMessageNode [
 	definitionExpressionTree := aRBMessageNode
 ]
 
-{ #category : #selection }
+{ #category : #'initialize-release' }
 CDClassDefinition >> initialize [
 	super initialize.
+	children := OrderedCollection new.
 	classDefinitionNodes := Dictionary new.
+]
+
+{ #category : #selection }
+CDClassDefinition >> intersectsInterval: anInterval [ 
+	^(anInterval first between: self start and: self stop) 
+		or: [self start between: anInterval first and: anInterval last]
 ]
 
 { #category : #accessing }
@@ -89,6 +115,7 @@ CDClassDefinition >> packageNameNode [
 CDClassDefinition >> packageNameNode: aNode astNode: astNode [
 
 	packageNameNode := aNode.
+	children add: aNode.
 	classDefinitionNodes at: astNode put: aNode
 ]
 
@@ -127,7 +154,22 @@ CDClassDefinition >> slots [
 
 { #category : #accessing }
 CDClassDefinition >> slots: aCollection [ 
-	slotNodes := aCollection
+	
+	slotNodes := aCollection.
+	children addAll: aCollection
+	
+]
+
+{ #category : #selection }
+CDClassDefinition >> start [
+	
+	^ definitionExpressionTree start
+]
+
+{ #category : #selection }
+CDClassDefinition >> stop [
+	
+	^ definitionExpressionTree stop
 ]
 
 { #category : #accessing }
@@ -146,6 +188,7 @@ CDClassDefinition >> superclassNameNode [
 CDClassDefinition >> superclassNameNode: aNode astNode: astNode [
 	
 	superclassNameNode := aNode.
+	children add: aNode.
 	classDefinitionNodes at: astNode put: aNode
 ]
 

@@ -9,7 +9,10 @@ CDClassWithTraitParserTest >> classDefinitionString [
 
 ^ 'MySuperclass subclass: #MyClass
 		uses: MyTrait
-		instanceVariableNames: ''x y''
+		instanceVariableNames: ''{instvar1} {instvar2}''
 		classVariableNames: ''X Y''
 		package: #MyPackage'
+			format: { 
+				'instvar1' -> self firstInstanceVariableName.
+				'instvar2' -> self secondInstanceVariableName. } asDictionary
 ]

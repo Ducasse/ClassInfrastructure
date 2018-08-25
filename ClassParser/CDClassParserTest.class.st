@@ -4,10 +4,39 @@ Class {
 	#category : #ClassParser
 }
 
+{ #category : #testing }
+CDClassParserTest class >> isAbstract [
+	^ self == CDClassParserTest
+]
+
 { #category : #helpers }
 CDClassParserTest >> classDefinitionString [
 
 	self subclassResponsibility
+]
+
+{ #category : #helpers }
+CDClassParserTest >> firstInstanceVariableIndex [
+
+	^ self classDefinitionString findString: self firstInstanceVariableName
+]
+
+{ #category : #helpers }
+CDClassParserTest >> firstInstanceVariableName [
+
+	^ 'first'
+]
+
+{ #category : #helpers }
+CDClassParserTest >> secondInstanceVariableIndex [
+
+	^ self classDefinitionString findString: self secondInstanceVariableName
+]
+
+{ #category : #helpers }
+CDClassParserTest >> secondInstanceVariableName [
+
+	^ 'second'
 ]
 
 { #category : #tests }
@@ -21,6 +50,32 @@ CDClassParserTest >> testBestNodeForClassNameSelectionShouldBeClassNameNode [
 	
 	selectedNode := definition bestNodeFor: selection.
 	self assert: selectedNode equals: definition classNameNode
+]
+
+{ #category : #tests }
+CDClassParserTest >> testBestNodeForInstanceVariableSelectionShouldBeSlotNode [
+
+	| definition selectedNode start selection |
+	definition := CDClassParser parse: self classDefinitionString.
+	
+	start := self firstInstanceVariableIndex.
+	selection := start to: start.
+	
+	selectedNode := definition bestNodeFor: selection.
+	self assert: selectedNode equals: definition slotNodes first
+]
+
+{ #category : #tests }
+CDClassParserTest >> testBestNodeForSecondInstanceVariableSelectionShouldBeSecondSlotNode [
+
+	| definition selectedNode start selection |
+	definition := CDClassParser parse: self classDefinitionString.
+	
+	start := self secondInstanceVariableIndex.
+	selection := start to: start.
+	
+	selectedNode := definition bestNodeFor: selection.
+	self assert: selectedNode equals: definition slotNodes second
 ]
 
 { #category : #tests }
@@ -88,8 +143,8 @@ CDClassParserTest >> testClassDefinitionFromLegacyClassDefinitionStringHasSlots 
 	| definition |
 	definition := CDClassParser parse: self classDefinitionString.
 
-	self assert: definition slotNodes first name equals: #x.
-	self assert: definition slotNodes second name equals: #y.
+	self assert: definition slotNodes first name equals: self firstInstanceVariableName.
+	self assert: definition slotNodes second name equals: self secondInstanceVariableName.
 ]
 
 { #category : #tests }

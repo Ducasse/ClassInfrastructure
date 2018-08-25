@@ -38,10 +38,18 @@ CDClassParser >> initialize [
 
 { #category : #accessing }
 CDClassParser >> instanceVariablesString: aNode [
-	
-	| slots slotNodes |
-	slots := aNode value substrings collect: [ :substring | substring asValidInstVarName asSlot ].
-	slotNodes := slots collect: [ :slot | CDSlotNode slot: slot node: aNode ].
+	| slots slotNodes instanceVariablesString |
+	instanceVariablesString := aNode value.
+	slots := instanceVariablesString substrings
+		collect: [ :substring | substring asValidInstVarName asSlot ].
+	slotNodes := slots
+		collect: [ :slot | | start |
+			start := aNode start + (instanceVariablesString findString: slot name).
+			CDSlotNode
+				slot: slot
+				node: aNode
+				start: start
+				stop: start + slot name size ].
 	classDefinition slots: slotNodes
 ]
 
@@ -67,7 +75,7 @@ CDClassParser >> parseSelectorPart: aString withArgument: aNode [
 	"We could do this with reflection, or with a dictionary and closures.
 	I chose to use a series of if for readability only."
 	
-	aString = 'subclass:'
+	aString = #subclass:
 		ifTrue: [ ^ self className: aNode ].
 	aString =	 #instanceVariableNames:
 		ifTrue: [ ^ self instanceVariablesString: aNode ].
