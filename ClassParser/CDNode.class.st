@@ -1,6 +1,10 @@
 Class {
 	#name : #CDNode,
 	#superclass : #Object,
+	#instVars : [
+		'originalNode',
+		'children'
+	],
 	#category : #ClassParser
 }
 
@@ -36,7 +40,7 @@ CDNode >> bestNodeForOld: aSelection [
 { #category : #selection }
 CDNode >> children [
 
-	self subclassResponsibility
+	^ children
 ]
 
 { #category : #selection }
@@ -44,10 +48,23 @@ CDNode >> containedBy: anInterval [
 	^anInterval first <= self start and: [anInterval last >= self stop]
 ]
 
+{ #category : #initialization }
+CDNode >> initialize [
+
+	super initialize.
+	children := OrderedCollection new
+]
+
 { #category : #selection }
 CDNode >> intersectsInterval: anInterval [ 
 	^(anInterval first between: self start and: self stop) 
 		or: [self start between: anInterval first and: anInterval last]
+]
+
+{ #category : #accessing }
+CDNode >> originalNode: aNode [
+
+	originalNode := aNode
 ]
 
 { #category : #selection }

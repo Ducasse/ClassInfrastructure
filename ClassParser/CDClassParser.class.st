@@ -95,7 +95,7 @@ CDClassParser >> parseSelectorPart: aString withArgument: aNode [
 	aString =	 #package:
 		ifTrue: [ ^ self package: aNode ].
 	aString =	 #uses:
-		ifTrue: [ ^ self traitDefinition: aNode ].
+		ifTrue: [ ^ self parseTraitDefinitionFromNode: aNode ].
 	
 	self halt.
 ]
@@ -126,15 +126,17 @@ CDClassParser >> parseSlotsNodesFromArrayNode: aRBArrayNode [
 ]
 
 { #category : #accessing }
-CDClassParser >> superclass: aSuperclassNode [
-
-	classDefinition superclassNameNode: aSuperclassNode astNode: aSuperclassNode
+CDClassParser >> parseTraitDefinitionFromNode: aNode [
+	
+	classDefinition addChild: (CDTraitComposition new
+		originalNode: aNode;
+		yourself)
 ]
 
 { #category : #accessing }
-CDClassParser >> traitDefinition: aNode [
-	
-	classDefinition traitDefinition: aNode
+CDClassParser >> superclass: aSuperclassNode [
+
+	classDefinition superclassNameNode: aSuperclassNode astNode: aSuperclassNode
 ]
 
 { #category : #visiting }

@@ -25,12 +25,6 @@ CDSlotNode class >> node: aNode name: aName typeName: aTypeName start: start sto
 		yourself
 ]
 
-{ #category : #selection }
-CDSlotNode >> children [
-
-	^ #( )
-]
-
 { #category : #accessing }
 CDSlotNode >> index: anInteger [ 
 	

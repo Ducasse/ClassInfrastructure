@@ -1,6 +1,6 @@
 Class {
 	#name : #CDClassWithTraitParserTest,
-	#superclass : #CDClassParserTest,
+	#superclass : #CDTraitCompositionClassParserTest,
 	#category : #ClassParser
 }
 
@@ -17,4 +17,10 @@ CDClassWithTraitParserTest >> classDefinitionString [
 				'instvar2' -> self secondInstanceVariableName.
 				'classvar1' -> self firstClassVariableName.
 				'classvar2' -> self secondClassVariableName. } asDictionary
+]
+
+{ #category : #helpers }
+CDClassWithTraitParserTest >> traitDefinition [
+
+	^ 'MyTrait'
 ]

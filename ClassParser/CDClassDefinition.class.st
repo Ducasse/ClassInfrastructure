@@ -10,8 +10,7 @@ Class {
 		'slotNodes',
 		'superclassNameNode',
 		'packageNameNode',
-		'classDefinitionNodes',
-		'children'
+		'classDefinitionNodes'
 	],
 	#category : #ClassParser
 }
@@ -22,6 +21,12 @@ CDClassDefinition class >> on: aRBMessageNode [
 	^ self new
 		definitionExpressionTree: aRBMessageNode;
 		yourself
+]
+
+{ #category : #accessing }
+CDClassDefinition >> addChild: aChild [
+	
+	children add: aChild
 ]
 
 { #category : #accessing }
@@ -50,12 +55,6 @@ CDClassDefinition >> bestNodeForOld: aSelection [
 	originalNodeSelected := definitionExpressionTree bestNodeFor: aSelection.
 	selectedClassDefinitionNode := classDefinitionNodes at: originalNodeSelected.
 	^ selectedClassDefinitionNode
-]
-
-{ #category : #selection }
-CDClassDefinition >> children [
-
-	^ children
 ]
 
 { #category : #introspection }
@@ -96,7 +95,6 @@ CDClassDefinition >> definitionExpressionTree: aRBMessageNode [
 { #category : #'initialize-release' }
 CDClassDefinition >> initialize [
 	super initialize.
-	children := OrderedCollection new.
 	slotNodes := OrderedCollection new.
 	classDefinitionNodes := Dictionary new.
 ]
@@ -204,5 +202,6 @@ CDClassDefinition >> superclassNameNode: aNode astNode: astNode [
 { #category : #accessing }
 CDClassDefinition >> traitDefinition: aNode [
 
-	traitDefinition := aNode 
+	traitDefinition := aNode.
+	children add: aNode.
 ]
