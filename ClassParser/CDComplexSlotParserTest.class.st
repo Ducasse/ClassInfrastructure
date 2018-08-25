@@ -7,7 +7,7 @@ Class {
 { #category : #helpers }
 CDComplexSlotParserTest >> classDefinitionString [
 
-	^ 'MySuperclass subclass: #MyClass
+	^ '{superclassname} subclass: #{classname}
 		slots: \{
 		''{instvar1}'' => InstanceVariableSlot. 
 		''{instvar2}'' => InstanceVariableSlot.
@@ -15,6 +15,8 @@ CDComplexSlotParserTest >> classDefinitionString [
 		classVariableNames: ''{classvar1} {classvar2}''
 		package: #MyPackage'
 			format: { 
+				'classname' -> self className.
+				'superclassname' -> self superclassName.
 				'instvar1' -> self firstInstanceVariableName.
 				'instvar2' -> self secondInstanceVariableName.
 				'classvar1' -> self firstClassVariableName.

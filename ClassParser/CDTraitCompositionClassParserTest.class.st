@@ -4,15 +4,22 @@ Class {
 	#category : #ClassParser
 }
 
+{ #category : #testing }
+CDTraitCompositionClassParserTest class >> isAbstract [
+	^ self == CDTraitCompositionClassParserTest
+]
+
 { #category : #helpers }
 CDTraitCompositionClassParserTest >> classDefinitionString [
 
-^ 'MySuperclass subclass: #MyClass
+^ '{superclassName} subclass: #{classname}
 		uses: {traitDefinition}
 		instanceVariableNames: ''{instvar1} {instvar2}''
 		classVariableNames: ''{classvar1} {classvar2}''
 		package: #MyPackage'
 			format: {
+				'classname' -> self className.
+				'superclassName' -> self superclassName.
 				'instvar1' -> self firstInstanceVariableName.
 				'instvar2' -> self secondInstanceVariableName.
 				'classvar1' -> self firstClassVariableName.
@@ -23,14 +30,11 @@ CDTraitCompositionClassParserTest >> classDefinitionString [
 { #category : #tests }
 CDTraitCompositionClassParserTest >> testBestNodeForTraitCompositionSelectionShouldBeTraitComposition [
 
-	| definition selectedNode start selection |
-	
-	definition := CDClassParser parse: self classDefinitionString.
-	
+	| selectedNode start selection |	
 	start := self traitDefinitionIndex.
 	selection := start to: start.
 	
-	selectedNode := definition bestNodeFor: selection.
+	selectedNode := classDefinition bestNodeFor: selection.
 	self assert: selectedNode isTraitComposition
 ]
 

@@ -1,6 +1,9 @@
 Class {
 	#name : #CDClassParserTest,
 	#superclass : #TestCase,
+	#instVars : [
+		'classDefinition'
+	],
 	#category : #ClassParser
 }
 
@@ -13,6 +16,12 @@ CDClassParserTest class >> isAbstract [
 CDClassParserTest >> classDefinitionString [
 
 	self subclassResponsibility
+]
+
+{ #category : #helpers }
+CDClassParserTest >> className [
+
+	^ 'TheClass'
 ]
 
 { #category : #helpers }
@@ -63,141 +72,125 @@ CDClassParserTest >> secondInstanceVariableName [
 	^ 'second'
 ]
 
+{ #category : #helpers }
+CDClassParserTest >> selectionOf: aText [
+
+	| start |
+	start := self classDefinitionString findString: aText.
+	^ start to: start
+]
+
+{ #category : #tests }
+CDClassParserTest >> setUp [
+
+	super setUp.
+	
+	classDefinition := CDClassParser parse: self classDefinitionString.
+]
+
+{ #category : #helpers }
+CDClassParserTest >> superclassName [
+
+	^ 'TheSuperClass'
+]
+
 { #category : #tests }
 CDClassParserTest >> testBestNodeForClassNameSelectionShouldBeClassNameNode [
 
-	| definition selectedNode start selection |
-	definition := CDClassParser parse: self classDefinitionString.
+	| selectedNode selection |
 	
-	start := definition definitionExpressionTree arguments first start.
-	selection := start to: start.
+	selection := self selectionOf: self className.
 	
-	selectedNode := definition bestNodeFor: selection.
-	self assert: selectedNode equals: definition classNameNode
+	selectedNode := classDefinition bestNodeFor: selection.
+	self assert: selectedNode equals: classDefinition classNameNode
 ]
 
 { #category : #tests }
 CDClassParserTest >> testBestNodeForClassVariableSelectionShouldBeClassSlotNode [
 
-	| definition selectedNode start selection |
-	definition := CDClassParser parse: self classDefinitionString.
+	| selectedNode selection |	
+	selection := self selectionOf: self firstClassVariableName.
 	
-	start := self firstClassVariableIndex.
-	selection := start to: start.
-	
-	selectedNode := definition bestNodeFor: selection.
-	self assert: selectedNode equals: definition sharedSlots first
+	selectedNode := classDefinition bestNodeFor: selection.
+	self assert: selectedNode equals: classDefinition sharedSlots first
 ]
 
 { #category : #tests }
 CDClassParserTest >> testBestNodeForInstanceVariableSelectionShouldBeSlotNode [
 
-	| definition selectedNode start selection |
-	definition := CDClassParser parse: self classDefinitionString.
+	| selectedNode selection |	
+	selection := self selectionOf: self firstInstanceVariableName.
 	
-	start := self firstInstanceVariableIndex.
-	selection := start to: start.
-	
-	selectedNode := definition bestNodeFor: selection.
-	self assert: selectedNode equals: definition slotNodes first
+	selectedNode := classDefinition bestNodeFor: selection.
+	self assert: selectedNode equals: classDefinition slotNodes first
 ]
 
 { #category : #tests }
 CDClassParserTest >> testBestNodeForSecondInstanceVariableSelectionShouldBeSecondSlotNode [
 
-	| definition selectedNode start selection |
-	definition := CDClassParser parse: self classDefinitionString.
+	| selectedNode selection |
+	selection := self selectionOf: self secondInstanceVariableName.
 	
-	start := self secondInstanceVariableIndex.
-	selection := start to: start.
-	
-	selectedNode := definition bestNodeFor: selection.
-	self assert: selectedNode equals: definition slotNodes second
+	selectedNode := classDefinition bestNodeFor: selection.
+	self assert: selectedNode equals: classDefinition slotNodes second
 ]
 
 { #category : #tests }
 CDClassParserTest >> testBestNodeForSuperclassSelectionShouldBeSuperclassNameNode [
 
-	| definition selectedNode start selection |
-	definition := CDClassParser parse: self classDefinitionString.
+	| selectedNode selection |
+	selection := self selectionOf: self superclassName.
 
-	start := definition definitionExpressionTree receiver start.
-	selection := start to: start.
-
-	selectedNode := definition bestNodeFor: selection.
-	self assert: selectedNode equals: definition superclassNameNode
+	selectedNode := classDefinition bestNodeFor: selection.
+	self assert: selectedNode equals: classDefinition superclassNameNode
 ]
 
 { #category : #tests }
 CDClassParserTest >> testClassDefinitionFromLegacyClassDefinitionStringHasClassName [
 
-	| definition |
-	definition := CDClassParser parse: self classDefinitionString.
-
-	self assert: definition className == #MyClass.
+	self assert: classDefinition className equals: self className.
 ]
 
 { #category : #tests }
 CDClassParserTest >> testClassDefinitionFromLegacyClassDefinitionStringHasClassNameNode [
 
-	| definition |
-	definition := CDClassParser parse: self classDefinitionString.
-
-	self assert: definition classNameNode value equals: #MyClass.
+	self assert: classDefinition classNameNode value equals: self className.
 ]
 
 { #category : #tests }
 CDClassParserTest >> testClassDefinitionFromLegacyClassDefinitionStringHasClassSlots [
 
-	| definition |
-	definition := CDClassParser parse: self classDefinitionString.
-
-	self assert: definition sharedSlotNodes first name equals: self firstClassVariableName.
-	self assert: definition sharedSlotNodes second name equals: self secondClassVariableName.
+	self assert: classDefinition sharedSlotNodes first name equals: self firstClassVariableName.
+	self assert: classDefinition sharedSlotNodes second name equals: self secondClassVariableName.
 ]
 
 { #category : #tests }
 CDClassParserTest >> testClassDefinitionFromLegacyClassDefinitionStringHasPackageName [
 
-	| definition |
-	definition := CDClassParser parse: self classDefinitionString.
-
-	self assert: definition packageName == #MyPackage.
+	self assert: classDefinition packageName == #MyPackage.
 ]
 
 { #category : #tests }
 CDClassParserTest >> testClassDefinitionFromLegacyClassDefinitionStringHasPackageNameNode [
 
-	| definition |
-	definition := CDClassParser parse: self classDefinitionString.
-
-	self assert: definition packageNameNode value equals: #MyPackage.
+	self assert: classDefinition packageNameNode value equals: #MyPackage.
 ]
 
 { #category : #tests }
 CDClassParserTest >> testClassDefinitionFromLegacyClassDefinitionStringHasSlots [
 
-	| definition |
-	definition := CDClassParser parse: self classDefinitionString.
-
-	self assert: definition slotNodes first name equals: self firstInstanceVariableName.
-	self assert: definition slotNodes second name equals: self secondInstanceVariableName.
+	self assert: classDefinition slotNodes first name equals: self firstInstanceVariableName.
+	self assert: classDefinition slotNodes second name equals: self secondInstanceVariableName.
 ]
 
 { #category : #tests }
 CDClassParserTest >> testClassDefinitionFromLegacyClassDefinitionStringHasSuperclassName [
 
-	| definition |
-	definition := CDClassParser parse: self classDefinitionString.
-
-	self assert: definition superclassName equals: #MySuperclass.
+	self assert: classDefinition superclassName equals: self superclassName.
 ]
 
 { #category : #tests }
 CDClassParserTest >> testClassDefinitionFromLegacyClassDefinitionStringHasSuperclassNameNode [
 
-	| definition |
-	definition := CDClassParser parse: self classDefinitionString.
-
-	self assert: definition superclassNameNode name equals: #MySuperclass.
+	self assert: classDefinition superclassNameNode name equals: self superclassName.
 ]
