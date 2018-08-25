@@ -16,6 +16,18 @@ CDClassParserTest >> classDefinitionString [
 ]
 
 { #category : #helpers }
+CDClassParserTest >> firstClassVariableIndex [
+
+	^ self classDefinitionString findString: self firstClassVariableName
+]
+
+{ #category : #helpers }
+CDClassParserTest >> firstClassVariableName [
+
+	^ 'firstClass'
+]
+
+{ #category : #helpers }
 CDClassParserTest >> firstInstanceVariableIndex [
 
 	^ self classDefinitionString findString: self firstInstanceVariableName
@@ -25,6 +37,18 @@ CDClassParserTest >> firstInstanceVariableIndex [
 CDClassParserTest >> firstInstanceVariableName [
 
 	^ 'first'
+]
+
+{ #category : #helpers }
+CDClassParserTest >> secondClassVariableIndex [
+
+	^ self classDefinitionString findString: self secondClassVariableName
+]
+
+{ #category : #helpers }
+CDClassParserTest >> secondClassVariableName [
+
+	^ 'secondClass'
 ]
 
 { #category : #helpers }
@@ -115,8 +139,8 @@ CDClassParserTest >> testClassDefinitionFromLegacyClassDefinitionStringHasClassS
 	| definition |
 	definition := CDClassParser parse: self classDefinitionString.
 
-	self assert: definition sharedSlotNodes first name equals: #X.
-	self assert: definition sharedSlotNodes second name equals: #Y.
+	self assert: definition sharedSlotNodes first name equals: self firstClassVariableName.
+	self assert: definition sharedSlotNodes second name equals: self secondClassVariableName.
 ]
 
 { #category : #tests }
