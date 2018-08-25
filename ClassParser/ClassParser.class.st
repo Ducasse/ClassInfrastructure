@@ -5,6 +5,21 @@ I'm not a single object because I want to follow the design of an AST with the p
 I can be parametrized by providing a binding lists (name * other nodes) so that I can link to previously created entities instead of blindly creating new ones. 
 
 For example class definition should support smart suggestions. 
+
+Next steps:  
+	What  do we do with class side: 
+	- we create instance side and we add class instance variables
+		
+	We should be able to ask if the classDef represent a class already defined
+	
+	We should be able to ask whether all the information are ready for a class creation.
+	
+	Creation should be logged or not
+	
+	
+	
+	
+	
 "
 Class {
 	#name : #ClassParser,
