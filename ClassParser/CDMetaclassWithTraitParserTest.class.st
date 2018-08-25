@@ -1,11 +1,11 @@
 Class {
-	#name : #CDNormalMetaclassParserTest,
+	#name : #CDMetaclassWithTraitParserTest,
 	#superclass : #CDMetaclassParserTest,
 	#category : #ClassParser
 }
 
 { #category : #helpers }
-CDNormalMetaclassParserTest >> classDefinitionString [
+CDMetaclassWithTraitParserTest >> classDefinitionString [
 	
 	^ '{className} class 
 		uses: {classTraitName} classTrait
@@ -21,24 +21,24 @@ CDNormalMetaclassParserTest >> classDefinitionString [
 ]
 
 { #category : #helpers }
-CDNormalMetaclassParserTest >> classTraitName [
+CDMetaclassWithTraitParserTest >> classTraitName [
 	^ 'TApplyingOnClassSide'
 ]
 
 { #category : #helpers }
-CDNormalMetaclassParserTest >> testTraitDefinitionNodeIsTraitNode [
+CDMetaclassWithTraitParserTest >> testTraitDefinitionNodeIsTraitNode [
 
 	self assert: self traitCompositionNode isTraitNode
 ]
 
 { #category : #helpers }
-CDNormalMetaclassParserTest >> traitCompositionNode [
+CDMetaclassWithTraitParserTest >> traitCompositionNode [
 	
 	^ self nodeFor: self traitDefinition
 ]
 
 { #category : #helpers }
-CDNormalMetaclassParserTest >> traitDefinition [
+CDMetaclassWithTraitParserTest >> traitDefinition [
 
 	^ self classTraitName
 ]

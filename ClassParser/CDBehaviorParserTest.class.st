@@ -114,12 +114,6 @@ CDBehaviorParserTest >> testClassDefinitionFromLegacyClassDefinitionStringHasCla
 ]
 
 { #category : #tests }
-CDBehaviorParserTest >> testClassDefinitionFromLegacyClassDefinitionStringHasClassNameNode [
-
-	self assert: classDefinition classNameNode value equals: self className.
-]
-
-{ #category : #tests }
 CDBehaviorParserTest >> testClassDefinitionFromLegacyClassDefinitionStringHasSlots [
 
 	self assert: classDefinition slotNodes first name equals: self firstInstanceVariableName.

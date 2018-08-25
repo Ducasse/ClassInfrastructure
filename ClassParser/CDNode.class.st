@@ -12,8 +12,14 @@ Class {
 CDNode class >> on: aRBMessageNode [ 
 	
 	^ self new
-		definitionExpressionTree: aRBMessageNode;
+		originalNode: aRBMessageNode;
 		yourself
+]
+
+{ #category : #accessing }
+CDNode >> addChild: aChild [
+	
+	children add: aChild
 ]
 
 { #category : #compatibility }

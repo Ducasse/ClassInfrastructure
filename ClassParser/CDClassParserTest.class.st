@@ -54,6 +54,12 @@ CDClassParserTest >> testBestNodeForSuperclassSelectionShouldBeSuperclassNameNod
 ]
 
 { #category : #tests }
+CDClassParserTest >> testClassDefinitionFromLegacyClassDefinitionStringHasClassNameNode [
+
+	self assert: classDefinition classNameNode value equals: self className.
+]
+
+{ #category : #tests }
 CDClassParserTest >> testClassDefinitionFromLegacyClassDefinitionStringHasClassSlots [
 
 	self assert: classDefinition sharedSlotNodes first name equals: self firstClassVariableName.

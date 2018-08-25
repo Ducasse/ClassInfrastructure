@@ -14,10 +14,26 @@ CDClassParser class >> parse: aString [
 	^ self new parse: aString
 ]
 
+{ #category : #visiting }
+CDClassParser >> beClassDefinition [
+		
+	classDefinition := CDClassDefinitionNode new
+]
+
+{ #category : #visiting }
+CDClassParser >> beMetaclassDefinition [
+		
+	classDefinition := CDMetaclassDefinitionNode new
+]
+
 { #category : #accessing }
 CDClassParser >> className: aNode [ 
 	
-	classDefinition classNameNode: aNode astNode: aNode
+	| className |
+	className := (aNode isVariable
+		ifTrue: [ aNode name ]
+		ifFalse: [ aNode value ]) asSymbol.
+	classDefinition className: className astNode: aNode
 ]
 
 { #category : #accessing }
@@ -38,11 +54,10 @@ CDClassParser >> classVariableNames: aNode [
 	classDefinition sharedSlots: slotNodes
 ]
 
-{ #category : #initialization }
-CDClassParser >> initialize [
+{ #category : #parsing }
+CDClassParser >> isInstanceSideDefinition: aRBMessageNode [
 
-	super initialize.
-	classDefinition := CDClassDefinition new
+	^ aRBMessageNode receiver isMessage not
 ]
 
 { #category : #accessing }
@@ -57,7 +72,12 @@ CDClassParser >> parse: aString [
 	| expressionTree |
 	expressionTree := RBParser parseExpression: aString.
 	expressionTree doSemanticAnalysis.
-	classDefinition definitionExpressionTree: expressionTree.
+	
+	(self isInstanceSideDefinition: expressionTree)
+		ifTrue: [ self beClassDefinition  ]
+		ifFalse: [ self beMetaclassDefinition ].
+	
+	classDefinition originalNode: expressionTree.
 	expressionTree acceptVisitor: self.
 	^ classDefinition
 ]
@@ -100,7 +120,6 @@ CDClassParser >> parseSelectorPart: aString withArgument: aNode [
 	
 	"We could do this with reflection, or with a dictionary and closures.
 	I chose to use a series of if for readability only."
-	
 	aString = #subclass:
 		ifTrue: [ ^ self className: aNode ].
 	aString =	 #instanceVariableNames:
@@ -158,10 +177,17 @@ CDClassParser >> superclass: aSuperclassNode [
 	classDefinition superclassNameNode: aSuperclassNode astNode: aSuperclassNode
 ]
 
-{ #category : #visiting }
+{ #category : #parsing }
 CDClassParser >> visitMessageNode: aRBMessageNode [
 	
-	self superclass: aRBMessageNode receiver.
+	(self isInstanceSideDefinition: aRBMessageNode)
+		ifTrue: [ "instance "
+			self superclass: aRBMessageNode receiver.
+			 ]
+		ifFalse: [ "metaclass" 
+			self className: aRBMessageNode receiver receiver
+			].
+	
 	
 	aRBMessageNode selectorParts
 		with: aRBMessageNode arguments

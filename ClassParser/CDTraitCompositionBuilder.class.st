@@ -29,6 +29,14 @@ CDTraitCompositionBuilder >> visitLiteralNode: aRBLiteralValueNode [
 CDTraitCompositionBuilder >> visitMessageNode: aRBMessageNode [ 
 	
 	| node receiver argument |
+	
+	aRBMessageNode selector = #classTrait
+		ifTrue: [ 
+			^ CDClassTraitNode new
+				originalNode: aRBMessageNode;
+				name: aRBMessageNode receiver name;
+				yourself  ].
+	
 	receiver := aRBMessageNode receiver acceptVisitor: self.
 	argument := aRBMessageNode arguments first acceptVisitor: self.
 	
