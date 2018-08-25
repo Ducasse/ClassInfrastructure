@@ -12,3 +12,9 @@ CDSharedSlotNode class >> slot: aSlot node: aNode [
 		node: aNode;
 		yourself
 ]
+
+{ #category : #suggestions }
+CDSharedSlotNode >> specialCommands [
+	
+	^ SugsSuggestionFactory commandsForClassVariable
+]

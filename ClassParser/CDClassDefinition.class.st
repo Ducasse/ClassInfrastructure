@@ -167,6 +167,12 @@ CDClassDefinition >> slots: aCollection [
 	
 ]
 
+{ #category : #suggestions }
+CDClassDefinition >> specialCommands [
+	
+	^ SugsSuggestionFactory commandsForClass
+]
+
 { #category : #selection }
 CDClassDefinition >> start [
 	

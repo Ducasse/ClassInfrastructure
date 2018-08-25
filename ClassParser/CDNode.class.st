@@ -16,6 +16,12 @@ CDNode class >> on: aRBMessageNode [
 		yourself
 ]
 
+{ #category : #compatibility }
+CDNode >> ast [
+
+	^ self
+]
+
 { #category : #selection }
 CDNode >> bestNodeFor: anInterval [ 
 	| selectedChildren |
@@ -29,15 +35,6 @@ CDNode >> bestNodeFor: anInterval [
 ]
 
 { #category : #selection }
-CDNode >> bestNodeForOld: aSelection [
-	
-	| originalNodeSelected selectedClassDefinitionNode |
-	originalNodeSelected := definitionExpressionTree bestNodeFor: aSelection.
-	selectedClassDefinitionNode := classDefinitionNodes at: originalNodeSelected.
-	^ selectedClassDefinitionNode
-]
-
-{ #category : #selection }
 CDNode >> children [
 
 	^ children
@@ -46,6 +43,24 @@ CDNode >> children [
 { #category : #selection }
 CDNode >> containedBy: anInterval [ 
 	^anInterval first <= self start and: [anInterval last >= self stop]
+]
+
+{ #category : #compatibility }
+CDNode >> hasBreakpoint [
+	
+	^ false
+]
+
+{ #category : #compatibility }
+CDNode >> hasExecutionCounter [
+	
+	^ false
+]
+
+{ #category : #compatibility }
+CDNode >> hasWatchpoint [
+	
+	^ false
 ]
 
 { #category : #initialization }
@@ -67,6 +82,12 @@ CDNode >> originalNode: aNode [
 	originalNode := aNode
 ]
 
+{ #category : #suggestions }
+CDNode >> specialCommands [
+	
+	self subclassResponsibility
+]
+
 { #category : #selection }
 CDNode >> start [
 	
@@ -77,4 +98,12 @@ CDNode >> start [
 CDNode >> stop [
 	
 	^ originalNode stop
+]
+
+{ #category : #suggestions }
+CDNode >> suggestions [
+	
+	^ SugsSuggestionFactory globalCommands
+		addAll: self specialCommands;
+		yourself 
 ]

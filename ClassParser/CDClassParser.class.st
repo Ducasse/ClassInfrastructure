@@ -73,6 +73,7 @@ CDClassParser >> parse: aString [
 	
 	| expressionTree |
 	expressionTree := RBParser parseExpression: aString.
+	expressionTree doSemanticAnalysis.
 	classDefinition definitionExpressionTree: expressionTree.
 	expressionTree acceptVisitor: self.
 	^ classDefinition
