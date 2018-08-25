@@ -1,3 +1,6 @@
+"
+use: T1 + T2
+"
 Class {
 	#name : #CDTraitCompositionSequenceNode,
 	#superclass : #CDTraitCompositionNode,

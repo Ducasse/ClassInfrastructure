@@ -1,3 +1,6 @@
+"
+MyTrait - {#aliasName}
+"
 Class {
 	#name : #CDTraitExclusionNode,
 	#superclass : #CDTraitCompositionNode,

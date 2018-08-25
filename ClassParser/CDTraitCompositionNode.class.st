@@ -1,3 +1,10 @@
+"
+Operations on traits
+	- exclusion
+	- +
+	- alias
+	
+"
 Class {
 	#name : #CDTraitCompositionNode,
 	#superclass : #CDAbstractTraitCompositionNode,

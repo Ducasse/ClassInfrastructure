@@ -1,3 +1,6 @@
+"
+MyTrait @ {#aliasName -> #existingSelectorName}
+"
 Class {
 	#name : #CDTraitAliasNode,
 	#superclass : #CDTraitCompositionNode,
