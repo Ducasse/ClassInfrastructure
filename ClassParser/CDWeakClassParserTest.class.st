@@ -1,13 +1,13 @@
 Class {
-	#name : #CDNormalClassParserTest,
+	#name : #CDWeakClassParserTest,
 	#superclass : #CDClassParserTest,
 	#category : #ClassParser
 }
 
 { #category : #helpers }
-CDNormalClassParserTest >> classDefinitionString [
+CDWeakClassParserTest >> classDefinitionString [
 
-	^ '{superclassName} subclass: #{classname}
+	^ '{superclassName} weakSubclass: #{classname}
 		instanceVariableNames: ''{instvar1} {instvar2}''
 		classVariableNames: ''{classvar1} {classvar2}''
 		package: #MyPackage'
@@ -21,7 +21,7 @@ CDNormalClassParserTest >> classDefinitionString [
 ]
 
 { #category : #helpers }
-CDNormalClassParserTest >> testNormalClassIsNormal [
+CDWeakClassParserTest >> testWeakClassIsWeak [
 
-	self assert: (classDefinition isNormal)
+	self assert: classDefinition isWeak
 ]

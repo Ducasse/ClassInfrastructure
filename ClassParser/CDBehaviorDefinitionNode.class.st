@@ -56,6 +56,48 @@ CDBehaviorDefinitionNode >> initialize [
 	slotNodes := OrderedCollection new
 ]
 
+{ #category : #testing }
+CDBehaviorDefinitionNode >> isBytes [
+	
+	^ classKind = #variableByteSubclass:
+]
+
+{ #category : #testing }
+CDBehaviorDefinitionNode >> isEphemeron [
+	
+	^ classKind = #ephemeronSubclass:
+]
+
+{ #category : #testing }
+CDBehaviorDefinitionNode >> isImmediate [
+	
+	^ classKind = #immediateSubclass:
+]
+
+{ #category : #testing }
+CDBehaviorDefinitionNode >> isNormal [
+	
+	^ classKind = #subclass:
+]
+
+{ #category : #testing }
+CDBehaviorDefinitionNode >> isVariable [
+	
+	^ classKind = #variableSubclass:
+]
+
+{ #category : #testing }
+CDBehaviorDefinitionNode >> isWeak [
+	
+	^ classKind = #weakSubclass:
+]
+
+{ #category : #testing }
+CDBehaviorDefinitionNode >> isWords [
+	
+	^ classKind = #variableWordSubclass:
+]
+
 { #category : #accessing }
 CDBehaviorDefinitionNode >> slotNodes [
 	

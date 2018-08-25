@@ -1,13 +1,13 @@
 Class {
-	#name : #CDNormalClassParserTest,
+	#name : #CDVariableWordClassParserTest,
 	#superclass : #CDClassParserTest,
 	#category : #ClassParser
 }
 
 { #category : #helpers }
-CDNormalClassParserTest >> classDefinitionString [
+CDVariableWordClassParserTest >> classDefinitionString [
 
-	^ '{superclassName} subclass: #{classname}
+	^ '{superclassName} variableWordSubclass: #{classname}
 		instanceVariableNames: ''{instvar1} {instvar2}''
 		classVariableNames: ''{classvar1} {classvar2}''
 		package: #MyPackage'
@@ -21,7 +21,7 @@ CDNormalClassParserTest >> classDefinitionString [
 ]
 
 { #category : #helpers }
-CDNormalClassParserTest >> testNormalClassIsNormal [
+CDVariableWordClassParserTest >> testVariableWordClassIsWords [
 
-	self assert: (classDefinition isNormal)
+	self assert: classDefinition isWords
 ]
