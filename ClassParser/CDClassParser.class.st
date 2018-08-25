@@ -128,9 +128,10 @@ CDClassParser >> parseSlotsNodesFromArrayNode: aRBArrayNode [
 { #category : #accessing }
 CDClassParser >> parseTraitDefinitionFromNode: aNode [
 	
-	classDefinition addChild: (CDTraitComposition new
-		originalNode: aNode;
-		yourself)
+	| traitComposition |
+	traitComposition := CDTraitCompositionBuilder new
+		buildFrom: aNode.	
+	classDefinition addChild: traitComposition.
 ]
 
 { #category : #accessing }

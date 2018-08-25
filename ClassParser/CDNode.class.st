@@ -70,11 +70,11 @@ CDNode >> originalNode: aNode [
 { #category : #selection }
 CDNode >> start [
 	
-	^ self subclassResponsibility
+	^ originalNode start
 ]
 
 { #category : #selection }
 CDNode >> stop [
 	
-	^ self subclassResponsibility
+	^ originalNode stop
 ]

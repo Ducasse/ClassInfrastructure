@@ -7,7 +7,7 @@ Class {
 { #category : #helpers }
 CDClassWithTraitParserTest >> testTraitDefinitionNodeIsTraitNode [
 
-	
+	self assert: self traitCompositionNode isTraitNode
 ]
 
 { #category : #helpers }

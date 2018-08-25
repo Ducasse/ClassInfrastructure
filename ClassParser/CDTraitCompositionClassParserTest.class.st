@@ -39,6 +39,12 @@ CDTraitCompositionClassParserTest >> testBestNodeForTraitCompositionSelectionSho
 ]
 
 { #category : #helpers }
+CDTraitCompositionClassParserTest >> traitCompositionNode [
+	
+	^ self nodeFor: self traitDefinition
+]
+
+{ #category : #helpers }
 CDTraitCompositionClassParserTest >> traitDefinition [
 
 	self subclassResponsibility

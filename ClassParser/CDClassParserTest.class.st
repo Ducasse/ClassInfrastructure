@@ -49,6 +49,12 @@ CDClassParserTest >> firstInstanceVariableName [
 ]
 
 { #category : #helpers }
+CDClassParserTest >> nodeFor: aString [ 
+	
+	^ classDefinition bestNodeFor: (self selectionOf: aString)
+]
+
+{ #category : #helpers }
 CDClassParserTest >> secondClassVariableIndex [
 
 	^ self classDefinitionString findString: self secondClassVariableName
