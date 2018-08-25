@@ -20,6 +20,12 @@ CDClassDefinitionNode class >> on: aRBMessageNode [
 		yourself
 ]
 
+{ #category : #testing }
+CDClassDefinitionNode >> isClassDefinition [
+	
+	^ true
+]
+
 { #category : #accessing }
 CDClassDefinitionNode >> packageName [
 	

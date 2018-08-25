@@ -9,6 +9,12 @@ Class {
 }
 
 { #category : #parsing }
+CDClassParser class >> fromASTNode: aNode [ 
+	
+	^ self new parseRootNode: aNode
+]
+
+{ #category : #parsing }
 CDClassParser class >> parse: aString [ 
 	
 	^ self new parse: aString
@@ -63,13 +69,7 @@ CDClassParser >> parse: aString [
 	expressionTree := RBParser parseExpression: aString.
 	expressionTree doSemanticAnalysis.
 	
-	(self isInstanceSideDefinition: expressionTree)
-		ifTrue: [ self beClassDefinition  ]
-		ifFalse: [ self beMetaclassDefinition ].
-	
-	classDefinition originalNode: expressionTree.
-	expressionTree acceptVisitor: self.
-	^ classDefinition
+	^ self parseRootNode: expressionTree
 ]
 
 { #category : #parsing }
@@ -128,6 +128,18 @@ CDClassParser >> parsePoolDictionariesFromNode: aNode [
 ]
 
 { #category : #parsing }
+CDClassParser >> parseRootNode: expressionTree [
+	
+	(self isInstanceSideDefinition: expressionTree)
+		ifTrue: [ self beClassDefinition  ]
+		ifFalse: [ self beMetaclassDefinition ].
+	
+	classDefinition originalNode: expressionTree.
+	expressionTree acceptVisitor: self.
+	^ classDefinition
+]
+
+{ #category : #parsing }
 CDClassParser >> parseSelectorPart: aString withArgument: aNode [ 
 	
 	"We could do this with reflection, or with a dictionary and closures.
@@ -148,7 +160,10 @@ CDClassParser >> parseSelectorPart: aString withArgument: aNode [
 		ifTrue: [ ^ self parseTraitDefinitionFromNode: aNode ].
 	aString =	 #poolDictionaries:
 		ifTrue: [ ^ self parsePoolDictionariesFromNode: aNode ].
-	self halt.
+	
+	CDUnrecognizedClassPart new
+		unrecognizedPart: aString;
+		signal
 ]
 
 { #category : #parsing }
