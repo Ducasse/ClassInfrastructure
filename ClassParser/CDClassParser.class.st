@@ -46,23 +46,6 @@ CDClassParser >> initialize [
 ]
 
 { #category : #accessing }
-CDClassParser >> instanceVariablesString: aNode [
-	| slots slotNodes instanceVariablesString |
-	instanceVariablesString := aNode value.
-	slots := instanceVariablesString substrings.
-	slotNodes := slots
-		collect: [ :slotName | | start |
-			start := aNode start + (instanceVariablesString findString: slotName).
-			CDSlotNode
-				node: aNode
-				name: slotName
-				typeName: 'InstanceVariableSlot'
-				start: start
-				stop: start + slotName size ].
-	classDefinition slots: slotNodes
-]
-
-{ #category : #accessing }
 CDClassParser >> package: aNode [ 
 	
 	classDefinition packageNameNode: aNode astNode: aNode
@@ -77,6 +60,23 @@ CDClassParser >> parse: aString [
 	classDefinition definitionExpressionTree: expressionTree.
 	expressionTree acceptVisitor: self.
 	^ classDefinition
+]
+
+{ #category : #accessing }
+CDClassParser >> parseInstanceVariablesFromNode: aNode [
+	| slots slotNodes instanceVariablesString |
+	instanceVariablesString := aNode value.
+	slots := instanceVariablesString substrings.
+	slotNodes := slots
+		collect: [ :slotName | | start |
+			start := aNode start + (instanceVariablesString findString: slotName).
+			CDSlotNode
+				node: aNode
+				name: slotName
+				typeName: 'InstanceVariableSlot'
+				start: start
+				stop: start + slotName size ].
+	classDefinition slots: slotNodes
 ]
 
 { #category : #accessing }
@@ -104,7 +104,7 @@ CDClassParser >> parseSelectorPart: aString withArgument: aNode [
 	aString = #subclass:
 		ifTrue: [ ^ self className: aNode ].
 	aString =	 #instanceVariableNames:
-		ifTrue: [ ^ self instanceVariablesString: aNode ].
+		ifTrue: [ ^ self parseInstanceVariablesFromNode: aNode ].
 	aString =	 #slots:
 		ifTrue: [ ^ self parseSlotsNodesFromArrayNode: aNode ].
 	aString =	 #classVariableNames:
