@@ -6,7 +6,8 @@ Class {
 		'sharedSlotNodes',
 		'superclassNameNode',
 		'packageNameNode',
-		'sharedPools'
+		'sharedPools',
+		'superclassName'
 	],
 	#category : #ClassParser
 }
@@ -73,18 +74,19 @@ CDClassDefinitionNode >> specialCommands [
 { #category : #accessing }
 CDClassDefinitionNode >> superclassName [
 	
-	^ superclassNameNode name asSymbol
+	^ superclassName
+]
+
+{ #category : #accessing }
+CDClassDefinitionNode >> superclassName: aName astNode: astNode [
+	
+	superclassName := aName.
+	superclassNameNode := astNode.
+	children add: astNode.
 ]
 
 { #category : #accessing }
 CDClassDefinitionNode >> superclassNameNode [
 	
 	^ superclassNameNode
-]
-
-{ #category : #accessing }
-CDClassDefinitionNode >> superclassNameNode: aNode astNode: astNode [
-	
-	superclassNameNode := aNode.
-	children add: aNode.
 ]

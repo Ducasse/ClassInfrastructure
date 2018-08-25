@@ -19,5 +19,5 @@ CDMetaclassParserTest >> className [
 { #category : #tests }
 CDMetaclassParserTest >> testClassDefinitionFromLegacyClassDefinitionStringHasClassNameNode [
 
-	self assert: classDefinition classNameNode name equals: self className.
+	self assert: classDefinition classNameNode value equals: self className.
 ]

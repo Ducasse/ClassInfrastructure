@@ -72,24 +72,29 @@ CDClassParser >> parse: aString [
 	^ classDefinition
 ]
 
-{ #category : #accessing }
+{ #category : #parsing }
 CDClassParser >> parseClassName: aNode [ 
 	
-	| className |
+	| className superclassNode |
 	className := (aNode isVariable
 		ifTrue: [ aNode name ]
 		ifFalse: [ aNode value ]) asSymbol.
-	classDefinition className: className astNode: aNode
+		
+	superclassNode := CDClassNameNode new
+		originalNode: aNode;
+		className: className. 
+		
+	classDefinition className: className astNode: superclassNode
 ]
 
-{ #category : #accessing }
+{ #category : #parsing }
 CDClassParser >> parseClassName: aNode withType: aSymbol [
 	
 	self parseClassName: aNode.
 	classDefinition classKind: aSymbol
 ]
 
-{ #category : #accessing }
+{ #category : #parsing }
 CDClassParser >> parseInstanceVariablesFromNode: aNode [
 	| slots slotNodes instanceVariablesString |
 	instanceVariablesString := aNode value.
@@ -106,7 +111,7 @@ CDClassParser >> parseInstanceVariablesFromNode: aNode [
 	classDefinition slots: slotNodes
 ]
 
-{ #category : #accessing }
+{ #category : #parsing }
 CDClassParser >> parsePoolDictionariesFromNode: aNode [
 	| shareds sharedPoolNodes sharedPoolString |
 	sharedPoolString := aNode value.
@@ -171,7 +176,23 @@ CDClassParser >> parseSlotsNodesFromArrayNode: aRBArrayNode [
 		self parseSlotNode: slotStatement ]
 ]
 
-{ #category : #accessing }
+{ #category : #parsing }
+CDClassParser >> parseSuperclassNode: aSuperclassNode [
+
+	| aSuperclassName superclassNode |
+	
+	aSuperclassName := (aSuperclassNode isLiteralNode
+		ifTrue: [ aSuperclassNode value asString ]
+		ifFalse: [ aSuperclassNode name ]) asSymbol.
+	
+	superclassNode := CDClassNameNode new
+		originalNode: aSuperclassNode;
+		className: aSuperclassName. 
+
+	classDefinition superclassName: aSuperclassName astNode: superclassNode
+]
+
+{ #category : #parsing }
 CDClassParser >> parseTraitDefinitionFromNode: aNode [
 	
 	| traitComposition |
@@ -180,18 +201,12 @@ CDClassParser >> parseTraitDefinitionFromNode: aNode [
 	classDefinition addChild: traitComposition.
 ]
 
-{ #category : #accessing }
-CDClassParser >> superclass: aSuperclassNode [
-
-	classDefinition superclassNameNode: aSuperclassNode astNode: aSuperclassNode
-]
-
 { #category : #parsing }
 CDClassParser >> visitMessageNode: aRBMessageNode [
 	
 	(self isInstanceSideDefinition: aRBMessageNode)
 		ifTrue: [ "instance "
-			self superclass: aRBMessageNode receiver.
+			self parseSuperclassNode: aRBMessageNode receiver.
 			 ]
 		ifFalse: [ "metaclass" 
 			self parseClassName: aRBMessageNode receiver receiver
