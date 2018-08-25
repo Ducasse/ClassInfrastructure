@@ -39,6 +39,15 @@ ClassParserTest >> testPointClassDefinitionHasAPackageDefinition [
 ]
 
 { #category : #tests }
+ClassParserTest >> testPointClassDefinitionHasAVariableDefinition [
+
+	| parser | 
+	parser := ClassParser new parse: self pointClassDefinition.
+	self assert: parser definition instanceVariables first name = 'x'.
+
+]
+
+{ #category : #tests }
 ClassParserTest >> testPointClassDefinitionRawProperties [
 	"we check the properties of the node entity and not its children. 
 	For now we modelled the instance variables and packages as other nodes."

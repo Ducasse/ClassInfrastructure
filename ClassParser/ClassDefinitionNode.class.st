@@ -12,6 +12,25 @@ Class {
 	#category : #ClassParser
 }
 
+{ #category : #'add/remove' }
+ClassDefinitionNode >> addVariable: aNode [
+
+	instanceVariableNodes add: aNode
+]
+
+{ #category : #initialization }
+ClassDefinitionNode >> initialize [
+
+	super initialize. 
+	instanceVariableNodes := OrderedCollection new
+]
+
+{ #category : #accessing }
+ClassDefinitionNode >> instanceVariables [
+
+	^ instanceVariableNodes 
+]
+
 { #category : #accessing }
 ClassDefinitionNode >> package [
 	^ packageNode
