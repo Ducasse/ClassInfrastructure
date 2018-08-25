@@ -128,6 +128,8 @@ CDClassParser >> parseSelectorPart: aString withArgument: aNode [
 		ifTrue: [ ^ self parseSlotsNodesFromArrayNode: aNode ].
 	aString =	 #classVariableNames:
 		ifTrue: [ ^ self classVariableNames: aNode ].
+	aString =	 #category:
+		ifTrue: [ ^ self package: aNode ].	
 	aString =	 #package:
 		ifTrue: [ ^ self package: aNode ].
 	aString =	 #uses:
