@@ -7,10 +7,37 @@ Class {
 		'classVariableNodes',
 		'kind',
 		'superclassName',
-		'selector'
+		'selectorParts'
 	],
 	#category : #ClassParser
 }
+
+{ #category : #accessing }
+ClassDefinitionNode >> package [
+	^ packageNode
+]
+
+{ #category : #accessing }
+ClassDefinitionNode >> package: aPackageDefinitionNode [ 
+	packageNode := aPackageDefinitionNode
+]
+
+{ #category : #accessing }
+ClassDefinitionNode >> packageName [
+	^ packageNode name
+]
+
+{ #category : #accessing }
+ClassDefinitionNode >> selectorParts [
+
+	^ selectorParts
+]
+
+{ #category : #accessing }
+ClassDefinitionNode >> selectorParts: aCollection [
+
+	selectorParts := aCollection
+]
 
 { #category : #accessing }
 ClassDefinitionNode >> superclassName [

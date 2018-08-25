@@ -14,14 +14,28 @@ ClassParserTest >> pointClassDefinition [
 ]
 
 { #category : #tests }
+ClassParserTest >> pointClassDefinitionAsTokens [
+
+	^ (Parser new scanTokens: self pointClassDefinition)
+]
+
+{ #category : #tests }
 ClassParserTest >> testPointClassDefinition [
 
 	| parser | 
 	parser := ClassParser new parse: self pointClassDefinition.
 	self assert: parser definition superclassName = 'Object'.
-	self assert: parser definition className = 'Point'.
+	self assert: parser definition name = 'Point'.
 	self assert: parser definition packageName = 'Kernel-BasicObjects'.
-	self assert: parser definition instanceVariableNames = 'x y'
+]
+
+{ #category : #tests }
+ClassParserTest >> testPointClassDefinitionHasAPackageDefinition [
+
+	| parser | 
+	parser := ClassParser new parse: self pointClassDefinition.
+	self assert: parser definition package name = 'Kernel-BasicObjects'.
+
 ]
 
 { #category : #tests }
@@ -33,6 +47,7 @@ ClassParserTest >> testPointClassDefinitionRawProperties [
 	parser := ClassParser new parse: self pointClassDefinition.
 	self assert: parser definition superclassName = 'Object'.
 	self assert: parser definition name = 'Point'.
+	self assert: parser definition selectorParts = self pointClassDefinitionAsTokens unzip second.
 
 ]
 
