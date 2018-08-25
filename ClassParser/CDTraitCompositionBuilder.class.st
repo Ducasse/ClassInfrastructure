@@ -13,7 +13,16 @@ CDTraitCompositionBuilder >> buildFrom: aNode [
 { #category : #visiting }
 CDTraitCompositionBuilder >> visitArrayNode: aRBArrayNode [ 
 	
-	^ aRBArrayNode statements collect: [ :each | each value ]
+	^ aRBArrayNode statements collect: [ :each | 
+		each isLiteralNode
+			ifTrue: [ each value ]
+			ifFalse: [ each receiver value -> each arguments first value ] ]
+]
+
+{ #category : #visiting }
+CDTraitCompositionBuilder >> visitLiteralNode: aRBLiteralValueNode [ 
+	
+	^ aRBLiteralValueNode value
 ]
 
 { #category : #visiting }

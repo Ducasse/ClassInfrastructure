@@ -7,6 +7,12 @@ Class {
 	#category : #ClassParser
 }
 
+{ #category : #testing }
+CDTraitCompositionSequenceNode >> isTraitSequenceNode [
+	
+	^ true
+]
+
 { #category : #accessing }
 CDTraitCompositionSequenceNode >> sequence: aCollection [ 
 	sequence := aCollection

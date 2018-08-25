@@ -11,3 +11,9 @@ Class {
 CDTraitExclusionNode >> exclusions: aCollection [ 
 	exclusions := aCollection
 ]
+
+{ #category : #testing }
+CDTraitExclusionNode >> isTraitExclusionNode [
+	
+	^ true
+]
