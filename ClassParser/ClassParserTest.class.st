@@ -5,46 +5,30 @@ Class {
 }
 
 { #category : #tests }
-ClassParserTest >> pointClassDefinition [
-
-	^ 'Object subclass: #Point
-		instanceVariableNames: ''x y''
-		classVariableNames: ''''
-		package: ''Kernel-BasicObjects'''
-]
-
-{ #category : #tests }
-ClassParserTest >> pointClassDefinitionAsTokens [
-
-	^ (Parser new scanTokens: self pointClassDefinition)
-]
-
-{ #category : #tests }
-ClassParserTest >> testPointClassDefinition [
-
-	| parser | 
-	parser := ClassParser new parse: self pointClassDefinition.
-	self assert: parser definition superclassName = 'Object'.
-	self assert: parser definition name = 'Point'.
-	self assert: parser definition packageName = 'Kernel-BasicObjects'.
-]
-
-{ #category : #tests }
 ClassParserTest >> testPointClassDefinitionHasAPackageDefinition [
 
 	| parser | 
-	parser := ClassParser new parse: self pointClassDefinition.
-	self assert: parser definition package name = 'Kernel-BasicObjects'.
-
+	parser := ClassParser new parse: self classDefinition.
+	self assert: parser definition package name = self classDefinitionAsTokens last
 ]
 
 { #category : #tests }
 ClassParserTest >> testPointClassDefinitionHasAVariableDefinition [
 
 	| parser | 
-	parser := ClassParser new parse: self pointClassDefinition.
-	self assert: parser definition instanceVariables first name = 'x'.
+	parser := ClassParser new parse: self classDefinition.
+	self assert: parser definition instanceVariables first name = ((self classDefinitionAsTokens at: 5) findTokens: Character space) first.
 
+]
+
+{ #category : #tests }
+ClassParserTest >> testPointClassDefinitionNames [
+
+	| parser | 
+	parser := ClassParser new parse: self classDefinition.
+	self assert: parser definition superclassName = self classDefinitionAsTokens first.
+	self assert: parser definition name = self classDefinitionAsTokens third asString.
+	self assert: parser definition packageName = self classDefinitionAsTokens last.
 ]
 
 { #category : #tests }
@@ -53,10 +37,10 @@ ClassParserTest >> testPointClassDefinitionRawProperties [
 	For now we modelled the instance variables and packages as other nodes."
 	
 	| parser | 
-	parser := ClassParser new parse: self pointClassDefinition.
-	self assert: parser definition superclassName = 'Object'.
-	self assert: parser definition name = 'Point'.
-	self assert: parser definition selectorParts = self pointClassDefinitionAsTokens unzip second.
+	parser := ClassParser new parse: self classDefinition.
+	self assert: parser definition superclassName = self classDefinitionAsTokens first.
+	self assert: parser definition name = self classDefinitionAsTokens third asString.
+	self assert: parser definition selectorParts = self classDefinitionAsTokens unzip second.
 
 ]
 
