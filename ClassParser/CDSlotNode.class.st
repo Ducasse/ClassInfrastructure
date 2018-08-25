@@ -6,17 +6,20 @@ Class {
 		'node',
 		'index',
 		'start',
-		'stop'
+		'stop',
+		'name',
+		'typeName'
 	],
 	#category : #ClassParser
 }
 
 { #category : #'instance-creation' }
-CDSlotNode class >> slot: aSlot node: aNode start: start stop: stop [
+CDSlotNode class >> node: aNode name: aName typeName: aTypeName start: start stop: stop [
 	
 	^ self new
-		slot: aSlot;
 		node: aNode;
+		name: aName;
+		typeName: aTypeName;
 		start: start;
 		stop: stop;
 		yourself
@@ -37,7 +40,13 @@ CDSlotNode >> index: anInteger [
 { #category : #accessing }
 CDSlotNode >> name [
 
-	^ slot name
+	^ name
+]
+
+{ #category : #accessing }
+CDSlotNode >> name: aString [
+
+	name := aString
 ]
 
 { #category : #accessing }
@@ -45,9 +54,16 @@ CDSlotNode >> node: aNode [
 	node := aNode
 ]
 
-{ #category : #accessing }
-CDSlotNode >> slot: aSlot [ 
-	slot := aSlot
+{ #category : #printing }
+CDSlotNode >> printOn: aStream [
+
+	aStream
+		nextPutAll: self class name;
+		nextPutAll: '(';
+		nextPutAll: name;
+		nextPutAll: ' => ';
+		nextPutAll: typeName;
+		nextPutAll: ')'
 ]
 
 { #category : #selection }
@@ -70,4 +86,10 @@ CDSlotNode >> stop [
 CDSlotNode >> stop: anInteger [ 
 	
 	stop := anInteger
+]
+
+{ #category : #accessing }
+CDSlotNode >> typeName: aString [ 
+	
+	typeName := aString
 ]

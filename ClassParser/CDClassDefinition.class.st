@@ -24,6 +24,13 @@ CDClassDefinition class >> on: aRBMessageNode [
 		yourself
 ]
 
+{ #category : #accessing }
+CDClassDefinition >> addSlot: aCDSlotNode [
+	
+	slotNodes add: aCDSlotNode.
+	children add: aCDSlotNode
+]
+
 { #category : #selection }
 CDClassDefinition >> bestNodeFor: anInterval [ 
 	| selectedChildren |
@@ -90,6 +97,7 @@ CDClassDefinition >> definitionExpressionTree: aRBMessageNode [
 CDClassDefinition >> initialize [
 	super initialize.
 	children := OrderedCollection new.
+	slotNodes := OrderedCollection new.
 	classDefinitionNodes := Dictionary new.
 ]
 

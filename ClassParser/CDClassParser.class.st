@@ -40,16 +40,16 @@ CDClassParser >> initialize [
 CDClassParser >> instanceVariablesString: aNode [
 	| slots slotNodes instanceVariablesString |
 	instanceVariablesString := aNode value.
-	slots := instanceVariablesString substrings
-		collect: [ :substring | substring asValidInstVarName asSlot ].
+	slots := instanceVariablesString substrings.
 	slotNodes := slots
-		collect: [ :slot | | start |
-			start := aNode start + (instanceVariablesString findString: slot name).
+		collect: [ :slotName | | start |
+			start := aNode start + (instanceVariablesString findString: slotName).
 			CDSlotNode
-				slot: slot
 				node: aNode
+				name: slotName
+				typeName: 'InstanceVariableSlot'
 				start: start
-				stop: start + slot name size ].
+				stop: start + slotName size ].
 	classDefinition slots: slotNodes
 ]
 
@@ -79,6 +79,8 @@ CDClassParser >> parseSelectorPart: aString withArgument: aNode [
 		ifTrue: [ ^ self className: aNode ].
 	aString =	 #instanceVariableNames:
 		ifTrue: [ ^ self instanceVariablesString: aNode ].
+	aString =	 #slots:
+		ifTrue: [ ^ self parseSlotsNodesFromArrayNode: aNode ].
 	aString =	 #classVariableNames:
 		ifTrue: [ ^ self classVariableNames: aNode ].
 	aString =	 #package:
@@ -87,6 +89,31 @@ CDClassParser >> parseSelectorPart: aString withArgument: aNode [
 		ifTrue: [ ^ self traitDefinition: aNode ].
 	
 	self halt.
+]
+
+{ #category : #parsing }
+CDClassParser >> parseSlotNode: aRBMessageNode [
+	
+	aRBMessageNode selector = '=>' ifTrue: [ | slot |
+		slot := CDSlotNode
+			node: aRBMessageNode
+			name: aRBMessageNode receiver value
+			typeName: aRBMessageNode arguments first name
+			start: aRBMessageNode start
+			stop: aRBMessageNode stop.
+		classDefinition addSlot: slot.
+		^ self
+	].
+
+	"If we are here we did not recognize the slot syntax"
+	self halt.
+]
+
+{ #category : #parsing }
+CDClassParser >> parseSlotsNodesFromArrayNode: aRBArrayNode [
+	
+	aRBArrayNode statements do: [ :slotStatement |
+		self parseSlotNode: slotStatement ]
 ]
 
 { #category : #accessing }
