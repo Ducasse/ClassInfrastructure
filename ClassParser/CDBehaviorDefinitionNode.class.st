@@ -5,7 +5,8 @@ Class {
 		'classNameNode',
 		'slotNodes',
 		'traitDefinition',
-		'className'
+		'className',
+		'classKind'
 	],
 	#category : #ClassParser
 }
@@ -15,6 +16,11 @@ CDBehaviorDefinitionNode >> addSlot: aCDSlotNode [
 	
 	slotNodes add: aCDSlotNode.
 	children add: aCDSlotNode
+]
+
+{ #category : #accessing }
+CDBehaviorDefinitionNode >> classKind: aString [ 
+	classKind := aString
 ]
 
 { #category : #accessing }

@@ -27,16 +27,6 @@ CDClassParser >> beMetaclassDefinition [
 ]
 
 { #category : #accessing }
-CDClassParser >> className: aNode [ 
-	
-	| className |
-	className := (aNode isVariable
-		ifTrue: [ aNode name ]
-		ifFalse: [ aNode value ]) asSymbol.
-	classDefinition className: className astNode: aNode
-]
-
-{ #category : #accessing }
 CDClassParser >> classVariableNames: aNode [ 
 	
 	| slots slotNodes classVariablesString |
@@ -83,6 +73,23 @@ CDClassParser >> parse: aString [
 ]
 
 { #category : #accessing }
+CDClassParser >> parseClassName: aNode [ 
+	
+	| className |
+	className := (aNode isVariable
+		ifTrue: [ aNode name ]
+		ifFalse: [ aNode value ]) asSymbol.
+	classDefinition className: className astNode: aNode
+]
+
+{ #category : #accessing }
+CDClassParser >> parseClassName: aNode withType: aSymbol [
+	
+	self parseClassName: aNode.
+	classDefinition classKind: aSymbol
+]
+
+{ #category : #accessing }
 CDClassParser >> parseInstanceVariablesFromNode: aNode [
 	| slots slotNodes instanceVariablesString |
 	instanceVariablesString := aNode value.
@@ -120,8 +127,8 @@ CDClassParser >> parseSelectorPart: aString withArgument: aNode [
 	
 	"We could do this with reflection, or with a dictionary and closures.
 	I chose to use a series of if for readability only."
-	aString = #subclass:
-		ifTrue: [ ^ self className: aNode ].
+	(#(variableWordSubclass: ephemeronSubclass: weakSubclass: variableByteSubclass: variableSubclass: immediateSubclass: #subclass:) includes: aString)
+		ifTrue: [ ^ self parseClassName: aNode withType: aString  ].
 	aString =	 #instanceVariableNames:
 		ifTrue: [ ^ self parseInstanceVariablesFromNode: aNode ].
 	aString =	 #slots:
@@ -187,7 +194,7 @@ CDClassParser >> visitMessageNode: aRBMessageNode [
 			self superclass: aRBMessageNode receiver.
 			 ]
 		ifFalse: [ "metaclass" 
-			self className: aRBMessageNode receiver receiver
+			self parseClassName: aRBMessageNode receiver receiver
 			].
 	
 	
