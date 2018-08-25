@@ -9,7 +9,7 @@ Class {
 		'sharedPools',
 		'superclassName'
 	],
-	#category : #ClassParser
+	#category : #'ClassParser-Model'
 }
 
 { #category : #'instance-creation' }

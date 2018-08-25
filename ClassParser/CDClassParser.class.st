@@ -5,7 +5,7 @@ Class {
 		'classDefinition',
 		'subclass'
 	],
-	#category : #ClassParser
+	#category : #'ClassParser-Model'
 }
 
 { #category : #parsing }

@@ -1,7 +1,7 @@
 Class {
 	#name : #CDSharedSlotNode,
 	#superclass : #CDSlotNode,
-	#category : #ClassParser
+	#category : #'ClassParser-Model'
 }
 
 { #category : #'instance-creation' }

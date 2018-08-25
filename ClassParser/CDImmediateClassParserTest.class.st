@@ -1,7 +1,7 @@
 Class {
 	#name : #CDImmediateClassParserTest,
 	#superclass : #CDClassParserTest,
-	#category : #ClassParser
+	#category : #'ClassParser-Test'
 }
 
 { #category : #helpers }

@@ -8,7 +8,7 @@ Class {
 		'className',
 		'classKind'
 	],
-	#category : #ClassParser
+	#category : #'ClassParser-Model'
 }
 
 { #category : #accessing }

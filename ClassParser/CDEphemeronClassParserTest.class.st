@@ -1,7 +1,7 @@
 Class {
 	#name : #CDEphemeronClassParserTest,
 	#superclass : #CDClassParserTest,
-	#category : #ClassParser
+	#category : #'ClassParser-Test'
 }
 
 { #category : #helpers }

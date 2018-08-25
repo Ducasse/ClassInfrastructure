@@ -10,7 +10,7 @@ Class {
 		'name',
 		'typeName'
 	],
-	#category : #ClassParser
+	#category : #'ClassParser-Model'
 }
 
 { #category : #'instance-creation' }

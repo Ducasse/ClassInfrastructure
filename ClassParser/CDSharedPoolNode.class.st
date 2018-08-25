@@ -6,7 +6,7 @@ Class {
 		'start',
 		'stop'
 	],
-	#category : #ClassParser
+	#category : #'ClassParser-Model'
 }
 
 { #category : #'instance creation' }

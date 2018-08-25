@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'unrecognizedPart'
 	],
-	#category : #ClassParser
+	#category : #'ClassParser-Test'
 }
 
 { #category : #accessing }

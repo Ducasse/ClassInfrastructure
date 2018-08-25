@@ -11,7 +11,7 @@ Class {
 	#instVars : [
 		'subject'
 	],
-	#category : #ClassParser
+	#category : #'ClassParser-Model'
 }
 
 { #category : #accessing }

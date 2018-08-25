@@ -8,7 +8,7 @@ Class {
 		'aliases',
 		'aliasName'
 	],
-	#category : #ClassParser
+	#category : #'ClassParser-Model'
 }
 
 { #category : #accessing }

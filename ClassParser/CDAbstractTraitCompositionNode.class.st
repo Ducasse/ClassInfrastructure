@@ -1,7 +1,7 @@
 Class {
 	#name : #CDAbstractTraitCompositionNode,
 	#superclass : #CDNode,
-	#category : #ClassParser
+	#category : #'ClassParser-Model'
 }
 
 { #category : #composing }

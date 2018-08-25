@@ -1,7 +1,7 @@
 Class {
 	#name : #CDTraitCompositionBuilder,
 	#superclass : #Object,
-	#category : #ClassParser
+	#category : #'ClassParser-Model'
 }
 
 { #category : #building }

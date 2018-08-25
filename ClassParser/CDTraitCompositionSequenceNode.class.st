@@ -7,7 +7,7 @@ Class {
 	#instVars : [
 		'sequence'
 	],
-	#category : #ClassParser
+	#category : #'ClassParser-Model'
 }
 
 { #category : #testing }

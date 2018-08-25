@@ -7,7 +7,7 @@ Class {
 	#instVars : [
 		'exclusions'
 	],
-	#category : #ClassParser
+	#category : #'ClassParser-Model'
 }
 
 { #category : #accessing }

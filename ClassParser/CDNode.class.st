@@ -5,7 +5,7 @@ Class {
 		'originalNode',
 		'children'
 	],
-	#category : #ClassParser
+	#category : #'ClassParser-Model'
 }
 
 { #category : #'instance-creation' }

@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'classDefinition'
 	],
-	#category : #ClassParser
+	#category : #'ClassParser-Test'
 }
 
 { #category : #testing }
