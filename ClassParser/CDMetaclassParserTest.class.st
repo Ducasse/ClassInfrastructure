@@ -1,7 +1,7 @@
 Class {
 	#name : #CDMetaclassParserTest,
 	#superclass : #CDBehaviorParserTest,
-	#category : #'ClassParser-Model'
+	#category : #'ClassParser-Test'
 }
 
 { #category : #testing }
