@@ -1,3 +1,13 @@
+"
+ClassParser uses the default node representation of classes to parse class definition and 
+return a dedicated class tree. 
+
+The basic idea behing ClassParser is to reuse as much as possible as the current infrastructure
+and not to reimplement yet another parser. 
+
+Main public API is 
+	- parse: aString
+"
 Class {
 	#name : #CDClassParser,
 	#superclass : #Object,
@@ -20,13 +30,13 @@ CDClassParser class >> parse: aString [
 	^ self new parse: aString
 ]
 
-{ #category : #visiting }
+{ #category : #internal }
 CDClassParser >> beClassDefinition [
 		
 	classDefinition := CDClassDefinitionNode new
 ]
 
-{ #category : #visiting }
+{ #category : #internal }
 CDClassParser >> beMetaclassDefinition [
 		
 	classDefinition := CDMetaclassDefinitionNode new
@@ -50,9 +60,9 @@ CDClassParser >> classVariableNames: aNode [
 	classDefinition sharedSlots: slotNodes
 ]
 
-{ #category : #parsing }
+{ #category : #testing }
 CDClassParser >> isInstanceSideDefinition: aRBMessageNode [
-
+	"Based on the Point or Point class structure, returns whether the definition is a class or instance side definition."
 	^ aRBMessageNode receiver isMessage not
 ]
 
@@ -62,7 +72,7 @@ CDClassParser >> package: aNode [
 	classDefinition packageNameNode: aNode astNode: aNode
 ]
 
-{ #category : #parsing }
+{ #category : #'parsing main' }
 CDClassParser >> parse: aString [ 
 	
 	| expressionTree |
@@ -129,13 +139,10 @@ CDClassParser >> parsePoolDictionariesFromNode: aNode [
 
 { #category : #parsing }
 CDClassParser >> parseRootNode: expressionTree [
-	
-	(self isInstanceSideDefinition: expressionTree)
-		ifTrue: [ self beClassDefinition  ]
-		ifFalse: [ self beMetaclassDefinition ].
-	
+	self setAdequateClassDefinitionFrom: expressionTree.
 	classDefinition originalNode: expressionTree.
 	expressionTree acceptVisitor: self.
+	"why do we need this double dispatch?"
 	^ classDefinition
 ]
 
@@ -144,6 +151,7 @@ CDClassParser >> parseSelectorPart: aString withArgument: aNode [
 	
 	"We could do this with reflection, or with a dictionary and closures.
 	I chose to use a series of if for readability only."
+	
 	(#(variableWordSubclass: ephemeronSubclass: weakSubclass: variableByteSubclass: variableSubclass: immediateSubclass: #subclass:) includes: aString)
 		ifTrue: [ ^ self parseClassName: aNode withType: aString  ].
 	aString =	 #instanceVariableNames:
@@ -162,6 +170,7 @@ CDClassParser >> parseSelectorPart: aString withArgument: aNode [
 		ifTrue: [ ^ self parsePoolDictionariesFromNode: aNode ].
 	
 	CDUnrecognizedClassPart new
+		classDefinition: self; 
 		unrecognizedPart: aString;
 		signal
 ]
@@ -216,9 +225,17 @@ CDClassParser >> parseTraitDefinitionFromNode: aNode [
 	classDefinition addChild: traitComposition.
 ]
 
+{ #category : #internal }
+CDClassParser >> setAdequateClassDefinitionFrom: expressionTree [
+	"set a class or metaclass class definition as class definition object."
+	(self isInstanceSideDefinition: expressionTree)
+		ifTrue: [ self beClassDefinition ]
+		ifFalse: [ self beMetaclassDefinition ]
+]
+
 { #category : #parsing }
 CDClassParser >> visitMessageNode: aRBMessageNode [
-	
+
 	(self isInstanceSideDefinition: aRBMessageNode)
 		ifTrue: [ "instance "
 			self parseSuperclassNode: aRBMessageNode receiver.
