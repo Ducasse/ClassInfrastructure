@@ -177,12 +177,22 @@ CDClassParser >> parseSelectorPart: aString withArgument: aNode [
 
 { #category : #parsing }
 CDClassParser >> parseSlotNode: aRBMessageNode [
+	|name typename|
 	
-	aRBMessageNode selector = '=>' ifTrue: [ | slot |
+	(aRBMessageNode isMessage and: [ aRBMessageNode selector = '=>' ])
+		ifTrue: [
+			name := aRBMessageNode receiver value.
+			typename := aRBMessageNode arguments first name ].
+	aRBMessageNode isLiteralNode
+		ifTrue: [
+			name := aRBMessageNode value.
+			typename := 'InstanceVariableSlot' ].
+	
+	name ifNotNil: [ | slot |
 		slot := CDSlotNode
 			node: aRBMessageNode
-			name: aRBMessageNode receiver value
-			typeName: aRBMessageNode arguments first name
+			name: name
+			typeName: typename
 			start: aRBMessageNode start
 			stop: aRBMessageNode stop.
 		classDefinition addSlot: slot.
