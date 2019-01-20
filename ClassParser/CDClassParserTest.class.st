@@ -21,6 +21,11 @@ CDClassParserTest >> firstClassVariableName [
 	^ 'firstClass'
 ]
 
+{ #category : #tests }
+CDClassParserTest >> packageName [
+	^ #'Kernel-BasicObjects'
+]
+
 { #category : #helpers }
 CDClassParserTest >> secondClassVariableName [
 
@@ -69,13 +74,21 @@ CDClassParserTest >> testClassDefinitionFromLegacyClassDefinitionStringHasClassS
 { #category : #tests }
 CDClassParserTest >> testClassDefinitionFromLegacyClassDefinitionStringHasPackageName [
 
-	self assert: classDefinition packageName == #MyPackage.
+	self assert: classDefinition packageName equals: self packageName
 ]
 
 { #category : #tests }
 CDClassParserTest >> testClassDefinitionFromLegacyClassDefinitionStringHasPackageNameNode [
 
-	self assert: classDefinition packageNameNode value equals: #MyPackage.
+	self assert: classDefinition packageNameNode value equals: self packageName
+]
+
+{ #category : #tests }
+CDClassParserTest >> testClassDefinitionFromLegacyClassDefinitionStringHasSharedSlots [
+
+	self halt.
+	self assert: classDefinition sharedSlots equals: self firstClassVariableName.
+	self assert: classDefinition sharedSlots equals: self secondClassVariableName.
 ]
 
 { #category : #tests }

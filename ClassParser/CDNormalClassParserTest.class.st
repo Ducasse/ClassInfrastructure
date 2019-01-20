@@ -23,5 +23,6 @@ CDNormalClassParserTest >> classDefinitionString [
 { #category : #helpers }
 CDNormalClassParserTest >> testNormalClassIsNormal [
 
-	self assert: (classDefinition isNormal)
+	self assert: (classDefinition isNormal).
+	self halt.
 ]

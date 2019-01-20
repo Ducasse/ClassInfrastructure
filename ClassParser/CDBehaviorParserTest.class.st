@@ -79,9 +79,7 @@ CDBehaviorParserTest >> setUp [
 CDBehaviorParserTest >> testBestNodeForClassNameSelectionShouldBeClassNameNode [
 
 	| selectedNode selection |
-	
 	selection := self selectionOf: self className.
-	
 	selectedNode := classDefinition bestNodeFor: selection.
 	self assert: selectedNode equals: classDefinition classNameNode
 ]
@@ -109,7 +107,7 @@ CDBehaviorParserTest >> testBestNodeForSecondInstanceVariableSelectionShouldBeSe
 { #category : #tests }
 CDBehaviorParserTest >> testClassDefinitionFromLegacyClassDefinitionStringHasClassName [
 
-	self assert: classDefinition className equals: self className.
+	self assert: classDefinition className equals: self className
 ]
 
 { #category : #tests }
