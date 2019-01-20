@@ -88,12 +88,6 @@ CDNode >> originalNode: aNode [
 	originalNode := aNode
 ]
 
-{ #category : #suggestions }
-CDNode >> specialCommands [
-	
-	self subclassResponsibility
-]
-
 { #category : #selection }
 CDNode >> start [
 	
@@ -106,10 +100,13 @@ CDNode >> stop [
 	^ originalNode stop
 ]
 
-{ #category : #suggestions }
+{ #category : #'to be removed once CDNode get subclass of RBProgramNode' }
 CDNode >> suggestions [
-	
-	^ SugsSuggestionFactory globalCommands
-		addAll: self specialCommands;
-		yourself 
+	^SugsSuggestion for: self class
+]
+
+{ #category : #'to be moved to sugs' }
+CDNode >> sugsMenuLabel [
+	self halt.
+	^ 'CDNode'
 ]

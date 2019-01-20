@@ -60,12 +60,6 @@ CDSlotNode >> printOn: aStream [
 		nextPutAll: ')'
 ]
 
-{ #category : #suggestions }
-CDSlotNode >> specialCommands [
-	
-	^ SugsSuggestionFactory commandsForInstanceVariable
-]
-
 { #category : #selection }
 CDSlotNode >> start [
 

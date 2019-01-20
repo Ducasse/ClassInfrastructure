@@ -20,6 +20,12 @@ CDClassDefinitionNode class >> on: aRBMessageNode [
 		yourself
 ]
 
+{ #category : #accessing }
+CDClassDefinitionNode >> binding [ 
+	Transcript show: '.'.
+	^ self class environment associationAt: self className ifAbsent: [nil -> self].
+]
+
 { #category : #testing }
 CDClassDefinitionNode >> isClassDefinition [
 	
@@ -69,12 +75,6 @@ CDClassDefinitionNode >> sharedSlots [
 CDClassDefinitionNode >> sharedSlots: aCollection [ 
 	sharedSlotNodes := aCollection.
 	children addAll: aCollection
-]
-
-{ #category : #suggestions }
-CDClassDefinitionNode >> specialCommands [
-	
-	^ SugsSuggestionFactory commandsForClass
 ]
 
 { #category : #accessing }

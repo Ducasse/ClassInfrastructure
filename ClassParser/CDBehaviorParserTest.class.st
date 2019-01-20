@@ -72,7 +72,6 @@ CDBehaviorParserTest >> selectionOf: aText [
 CDBehaviorParserTest >> setUp [
 
 	super setUp.
-	
 	classDefinition := CDClassParser parse: self classDefinitionString.
 ]
 
