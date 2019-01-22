@@ -19,6 +19,11 @@ CDPointClassParserTest >> className [
 	^ #Point
 ]
 
+{ #category : #helpers }
+CDPointClassParserTest >> packageName [ 
+	^ #'Kernel-BasicObjects'
+]
+
 { #category : #tests }
 CDPointClassParserTest >> superclassName [
 	self flag: #Revisit. "because this should be string according to superclasName method."
@@ -27,7 +32,7 @@ CDPointClassParserTest >> superclassName [
 
 { #category : #tests }
 CDPointClassParserTest >> testClassDefinitionFromLegacyClassDefinitionStringHasSlots [
-	self halt.
+	
 	self assert: classDefinition slotNodes first name equals: self firstInstanceVariableName.
 	self assert: classDefinition slotNodes second name equals: self secondInstanceVariableName.
 ]
