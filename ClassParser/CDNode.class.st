@@ -107,6 +107,6 @@ CDNode >> suggestions [
 
 { #category : #'to be moved to sugs' }
 CDNode >> sugsMenuLabel [
-	self halt.
+
 	^ 'CDNode'
 ]
