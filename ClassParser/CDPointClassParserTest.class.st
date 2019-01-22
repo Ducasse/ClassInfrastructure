@@ -9,7 +9,7 @@ CDPointClassParserTest >> classDefinitionString [
 
 	^ 'Object subclass: #Point
 	instanceVariableNames: ''x y''
-	classVariableNames: ''''
+	classVariableNames: ''XX YY''
 	package: ''Kernel-BasicObjects'''
 ]
 
@@ -19,9 +19,33 @@ CDPointClassParserTest >> className [
 	^ #Point
 ]
 
+{ #category : #tests }
+CDPointClassParserTest >> firstClassVariableName [
+
+	^ 'XX'
+]
+
+{ #category : #tests }
+CDPointClassParserTest >> firstInstanceVariableName [
+
+	^ 'x'
+]
+
 { #category : #helpers }
 CDPointClassParserTest >> packageName [ 
 	^ #'Kernel-BasicObjects'
+]
+
+{ #category : #tests }
+CDPointClassParserTest >> secondClassVariableName [
+
+	^ 'YY'
+]
+
+{ #category : #tests }
+CDPointClassParserTest >> secondInstanceVariableName [
+
+	^ 'y'
 ]
 
 { #category : #tests }
