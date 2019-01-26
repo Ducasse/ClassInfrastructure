@@ -2,6 +2,7 @@ Class {
 	#name : #CDNode,
 	#superclass : #Object,
 	#instVars : [
+		'parent',
 		'originalNode',
 		'children'
 	],
@@ -19,7 +20,8 @@ CDNode class >> on: aRBMessageNode [
 { #category : #accessing }
 CDNode >> addChild: aChild [
 	
-	children add: aChild
+	children add: aChild.
+	aChild parent: self
 ]
 
 { #category : #compatibility }
@@ -44,6 +46,11 @@ CDNode >> bestNodeFor: anInterval [
 CDNode >> children [
 
 	^ children
+]
+
+{ #category : #accessing }
+CDNode >> classDefinitionNode [
+	^parent classDefinitionNode
 ]
 
 { #category : #selection }
@@ -82,10 +89,40 @@ CDNode >> intersectsInterval: anInterval [
 		or: [self start between: anInterval first and: anInterval last]
 ]
 
+{ #category : #testing }
+CDNode >> isMessage [
+	^false
+]
+
+{ #category : #testing }
+CDNode >> isMethod [ 	
+	^false
+]
+
+{ #category : #testing }
+CDNode >> isVariable [
+	^false
+]
+
 { #category : #accessing }
 CDNode >> originalNode: aNode [
 
 	originalNode := aNode
+]
+
+{ #category : #accessing }
+CDNode >> parent [
+	^ parent
+]
+
+{ #category : #accessing }
+CDNode >> parent: anObject [
+	parent := anObject
+]
+
+{ #category : #accessing }
+CDNode >> sourceInterval [
+	^originalNode sourceInterval
 ]
 
 { #category : #selection }

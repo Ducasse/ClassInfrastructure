@@ -15,7 +15,12 @@ Class {
 CDBehaviorDefinitionNode >> addSlot: aCDSlotNode [
 	
 	slotNodes add: aCDSlotNode.
-	children add: aCDSlotNode
+	self addChild: aCDSlotNode
+]
+
+{ #category : #'as yet unclassified' }
+CDBehaviorDefinitionNode >> classDefinitionNode [
+	^self
 ]
 
 { #category : #accessing }
@@ -34,7 +39,7 @@ CDBehaviorDefinitionNode >> className: aName astNode: astNode [
 
 	className := aName.
 	classNameNode := astNode.
-	children add: astNode
+	self addChild: astNode
 ]
 
 { #category : #accessing }
@@ -47,7 +52,7 @@ CDBehaviorDefinitionNode >> classNameNode [
 CDBehaviorDefinitionNode >> classNameNode: aNode astNode: astNode [
 
 	classNameNode := aNode.
-	children add: aNode
+	self addChild: aNode
 ]
 
 { #category : #'initialize-release' }
@@ -114,7 +119,7 @@ CDBehaviorDefinitionNode >> slots [
 CDBehaviorDefinitionNode >> slots: aCollection [ 
 	
 	slotNodes := aCollection.
-	children addAll: aCollection
+	aCollection do: [ :each | self addChild: each ]
 	
 ]
 
@@ -122,5 +127,5 @@ CDBehaviorDefinitionNode >> slots: aCollection [
 CDBehaviorDefinitionNode >> traitDefinition: aNode [
 
 	traitDefinition := aNode.
-	children add: aNode.
+	self addChild: aNode.
 ]

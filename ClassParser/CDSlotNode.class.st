@@ -25,10 +25,77 @@ CDSlotNode class >> node: aNode name: aName typeName: aTypeName start: start sto
 		yourself
 ]
 
+{ #category : #'as yet unclassified' }
+CDSlotNode >> asCalypsoVariableOf: aClass [ 
+	
+	| className classBinding actualClass |
+	className := self classDefinitionNode className.
+	classBinding := node methodNode compilationContext environment bindingOf: className.
+	classBinding ifNil: [ ^self error: 'Class not exists yet' ].
+	actualClass := classBinding value.
+	^actualClass 
+		slotNamed: name asSymbol 
+		ifFound: [:aSlot | 
+			^ClyInstanceVariable on: aSlot definedIn: actualClass] 
+		ifNone: [self error: 'Slot is not created yet']
+]
+
+{ #category : #accessing }
+CDSlotNode >> binding [
+	
+	^self
+]
+
 { #category : #accessing }
 CDSlotNode >> index: anInteger [ 
 	
 	index := anInteger
+]
+
+{ #category : #testing }
+CDSlotNode >> isClassVariable [
+	^false
+]
+
+{ #category : #testing }
+CDSlotNode >> isGlobalVariable [
+	^false
+]
+
+{ #category : #testing }
+CDSlotNode >> isInstance [
+	^true
+]
+
+{ #category : #testing }
+CDSlotNode >> isLiteralVariable [
+	^false
+]
+
+{ #category : #testing }
+CDSlotNode >> isTemp [
+	^false
+]
+
+{ #category : #testing }
+CDSlotNode >> isUndeclared [
+	^false
+]
+
+{ #category : #testing }
+CDSlotNode >> isVariable [
+	| className classBinding |
+	className := self classDefinitionNode className.
+	classBinding := node methodNode compilationContext environment bindingOf: className.
+	classBinding ifNil: [ 
+		"Until class will be created the variables does not exist yet" 
+		^false ].
+	^classBinding value 
+		slotNamed: name asSymbol 
+		ifFound: [true] 
+		ifNone: [
+			"Until class will be compiled with new slot the new slot does not exist yet"
+			false]
 ]
 
 { #category : #accessing }
@@ -58,6 +125,11 @@ CDSlotNode >> printOn: aStream [
 		nextPutAll: ' => ';
 		nextPutAll: typeName;
 		nextPutAll: ')'
+]
+
+{ #category : #accessing }
+CDSlotNode >> sourceInterval [
+	^start to: stop
 ]
 
 { #category : #selection }
