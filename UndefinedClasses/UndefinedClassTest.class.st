@@ -1,7 +1,7 @@
 Class {
 	#name : #UndefinedClassTest,
 	#superclass : #TestCase,
-	#category : #UndefinedClasses
+	#category : #'UndefinedClasses-Test'
 }
 
 { #category : #tests }
@@ -163,7 +163,7 @@ UndefinedClassTest >> testUnknowSuperclassShouldInheritFromUndefinedClass [
 { #category : #compiling }
 UndefinedClassTest >> tokens [
 
-	^ Scanner new scanTokens: self undefinedDefinition
+	^ self undefinedDefinition splitOn: ' '
 ]
 
 { #category : #compiling }

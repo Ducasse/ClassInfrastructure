@@ -12,11 +12,17 @@ UndefinedClassHandler >> handleDefinitionString: aString [
 
 { #category : #handle }
 UndefinedClassHandler >> handleDefinitionWithParser: aParser [
-	
-	| newClass |
-	self class environment at: aParser className ifPresent: [ :class | ^ class ].
 
-	UndefinedClass createUndefinedClassNamed: aParser superClassName package: aParser packageName.
-	newClass := Smalltalk compilerClass evaluate: aParser originalString.
+	| newClass |
+	self class environment
+		at: aParser className
+		ifPresent: [ :class | ^ class ].
+
+	UndefinedClass
+		createUndefinedClassNamed: aParser superClassName
+		package: aParser packageName.
+	newClass := Smalltalk compilerClass new
+		source: aParser originalString;
+		evaluate.
 	^ newClass
 ]

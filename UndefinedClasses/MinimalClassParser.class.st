@@ -35,7 +35,7 @@ MinimalClassParser >> packageName [
 MinimalClassParser >> parseDefinition: aString [
 	| tokens |
 	originalString := aString.
-	tokens := (Parser new scanTokens: aString).
+	tokens := aString splitOn: ' '.
 	className := tokens third.
 	superClassName := tokens first.
 	packageName := tokens last.

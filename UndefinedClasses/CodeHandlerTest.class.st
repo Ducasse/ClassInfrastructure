@@ -1,7 +1,7 @@
 Class {
 	#name : #CodeHandlerTest,
 	#superclass : #TestCase,
-	#category : #UndefinedClasses
+	#category : #'UndefinedClasses-Test'
 }
 
 { #category : #tests }
