@@ -7,7 +7,7 @@ Class {
 		'originalString',
 		'packageName'
 	],
-	#category : #UndefinedClasses
+	#category : #'UndefinedClasses-Core'
 }
 
 { #category : #accessing }
@@ -35,7 +35,7 @@ MinimalClassParser >> packageName [
 MinimalClassParser >> parseDefinition: aString [
 	| tokens |
 	originalString := aString.
-	tokens := aString splitOn: ' '.
+	tokens := [:c| c isSeparator] split: aString.
 	className := tokens third.
 	superClassName := tokens first.
 	packageName := tokens last.

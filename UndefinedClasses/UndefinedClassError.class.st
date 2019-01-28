@@ -1,5 +1,5 @@
 Class {
 	#name : #UndefinedClassError,
 	#superclass : #Error,
-	#category : #UndefinedClasses
+	#category : #'UndefinedClasses-Core'
 }

@@ -1,15 +1,12 @@
 Class {
 	#name : #ClassDefinitionHandler,
 	#superclass : #Object,
-	#category : #UndefinedClasses
+	#category : #'UndefinedClasses-Core'
 }
 
 { #category : #compiling }
 ClassDefinitionHandler class >> createClassFromDefinitionString: aString [
-
-	"Parse the definition string.
-	Check that the superclass, the traits, the pool dictionaries and the package required exist.
-	If they do not exist, we create them, or we create an *undefined* version for them"
+	"Parse the definition string. Check that the superclass, the traits, the pool dictionaries and the package required exist. If they do not exist, we create them, or we create an *undefined* version for them"
 	
 	| classDefinition newClass |
 	classDefinition := CDClassParser parse: aString.
@@ -24,5 +21,5 @@ ClassDefinitionHandler class >> createClassFromDefinitionString: aString [
 { #category : #compiling }
 ClassDefinitionHandler class >> existsClassNamed: className [
 	
-	^ (className = #nil or: [ self environment includesKey: className ])
+	^ className = #nil or: [ self environment includesKey: className ]
 ]

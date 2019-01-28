@@ -1,7 +1,7 @@
 Class {
 	#name : #UndefinedClassHandler,
 	#superclass : #Object,
-	#category : #UndefinedClasses
+	#category : #'UndefinedClasses-Core'
 }
 
 { #category : #handle }

@@ -9,12 +9,12 @@ Test Cases:
 Class {
 	#name : #UndefinedClass,
 	#superclass : #Object,
-	#category : #UndefinedClasses
+	#category : #'UndefinedClasses-Core'
 }
 
 { #category : #'instance creation' }
 UndefinedClass class >> basicNew [
-	
+	"Normally redefine basicNew is a bad idea. But here we must do it."
 	UndefinedClassError signal: 'Cannot instantiate undefined class: ', self name
 ]
 
