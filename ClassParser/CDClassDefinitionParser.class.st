@@ -9,7 +9,7 @@ Main public API is
 	- parse: aString
 "
 Class {
-	#name : #CDClassParser,
+	#name : #CDClassDefinitionParser,
 	#superclass : #Object,
 	#instVars : [
 		'classDefinition',
@@ -19,31 +19,31 @@ Class {
 }
 
 { #category : #parsing }
-CDClassParser class >> fromASTNode: aNode [ 
+CDClassDefinitionParser class >> fromASTNode: aNode [ 
 	
 	^ self new parseRootNode: aNode
 ]
 
 { #category : #parsing }
-CDClassParser class >> parse: aString [ 
+CDClassDefinitionParser class >> parse: aString [ 
 	
 	^ self new parse: aString
 ]
 
 { #category : #internal }
-CDClassParser >> beClassDefinition [
+CDClassDefinitionParser >> beClassDefinition [
 		
 	classDefinition := CDClassDefinitionNode new
 ]
 
 { #category : #internal }
-CDClassParser >> beMetaclassDefinition [
+CDClassDefinitionParser >> beMetaclassDefinition [
 		
 	classDefinition := CDMetaclassDefinitionNode new
 ]
 
 { #category : #accessing }
-CDClassParser >> classVariableNames: aNode [ 
+CDClassDefinitionParser >> classVariableNames: aNode [ 
 	
 	| slots slotNodes classVariablesString |
 	classVariablesString := aNode value.
@@ -61,19 +61,19 @@ CDClassParser >> classVariableNames: aNode [
 ]
 
 { #category : #testing }
-CDClassParser >> isInstanceSideDefinition: aRBMessageNode [
+CDClassDefinitionParser >> isInstanceSideDefinition: aRBMessageNode [
 	"Based on the Point or Point class structure, returns whether the definition is a class or instance side definition."
 	^ aRBMessageNode receiver isMessage not
 ]
 
 { #category : #accessing }
-CDClassParser >> package: aNode [ 
+CDClassDefinitionParser >> package: aNode [ 
 	
 	classDefinition packageNameNode: aNode astNode: aNode
 ]
 
 { #category : #'parsing main' }
-CDClassParser >> parse: aString [ 
+CDClassDefinitionParser >> parse: aString [ 
 	
 	| expressionTree |
 	expressionTree := RBParser parseExpression: aString.
@@ -83,7 +83,7 @@ CDClassParser >> parse: aString [
 ]
 
 { #category : #parsing }
-CDClassParser >> parseClassName: aNode [ 
+CDClassDefinitionParser >> parseClassName: aNode [ 
 	
 	| className superclassNode |
 	className := (aNode isVariable
@@ -98,14 +98,14 @@ CDClassParser >> parseClassName: aNode [
 ]
 
 { #category : #parsing }
-CDClassParser >> parseClassName: aNode withType: aSymbol [
+CDClassDefinitionParser >> parseClassName: aNode withType: aSymbol [
 	
 	self parseClassName: aNode.
 	classDefinition classKind: aSymbol
 ]
 
 { #category : #parsing }
-CDClassParser >> parseInstanceVariablesFromNode: aNode [
+CDClassDefinitionParser >> parseInstanceVariablesFromNode: aNode [
 	| slots slotNodes instanceVariablesString |
 	instanceVariablesString := aNode value.
 	slots := instanceVariablesString substrings.
@@ -122,7 +122,7 @@ CDClassParser >> parseInstanceVariablesFromNode: aNode [
 ]
 
 { #category : #parsing }
-CDClassParser >> parsePoolDictionariesFromNode: aNode [
+CDClassDefinitionParser >> parsePoolDictionariesFromNode: aNode [
 	| shareds sharedPoolNodes sharedPoolString |
 	sharedPoolString := aNode value.
 	shareds := sharedPoolString substrings.
@@ -138,7 +138,7 @@ CDClassParser >> parsePoolDictionariesFromNode: aNode [
 ]
 
 { #category : #parsing }
-CDClassParser >> parseRootNode: expressionTree [
+CDClassDefinitionParser >> parseRootNode: expressionTree [
 	self setAdequateClassDefinitionFrom: expressionTree.
 	classDefinition originalNode: expressionTree.
 	expressionTree acceptVisitor: self.
@@ -147,7 +147,7 @@ CDClassParser >> parseRootNode: expressionTree [
 ]
 
 { #category : #parsing }
-CDClassParser >> parseSelectorPart: aString withArgument: aNode [ 
+CDClassDefinitionParser >> parseSelectorPart: aString withArgument: aNode [ 
 	
 	"We could do this with reflection, or with a dictionary and closures.
 	I chose to use a series of if for readability only."
@@ -176,7 +176,7 @@ CDClassParser >> parseSelectorPart: aString withArgument: aNode [
 ]
 
 { #category : #parsing }
-CDClassParser >> parseSlotNode: aRBMessageNode [
+CDClassDefinitionParser >> parseSlotNode: aRBMessageNode [
 	
 	aRBMessageNode selector = '=>' ifTrue: [ | slot |
 		slot := CDSlotNode
@@ -194,14 +194,14 @@ CDClassParser >> parseSlotNode: aRBMessageNode [
 ]
 
 { #category : #parsing }
-CDClassParser >> parseSlotsNodesFromArrayNode: aRBArrayNode [
+CDClassDefinitionParser >> parseSlotsNodesFromArrayNode: aRBArrayNode [
 	
 	aRBArrayNode statements do: [ :slotStatement |
 		self parseSlotNode: slotStatement ]
 ]
 
 { #category : #parsing }
-CDClassParser >> parseSuperclassNode: aSuperclassNode [
+CDClassDefinitionParser >> parseSuperclassNode: aSuperclassNode [
 
 	| aSuperclassName superclassNode |
 	
@@ -217,7 +217,7 @@ CDClassParser >> parseSuperclassNode: aSuperclassNode [
 ]
 
 { #category : #parsing }
-CDClassParser >> parseTraitDefinitionFromNode: aNode [
+CDClassDefinitionParser >> parseTraitDefinitionFromNode: aNode [
 	
 	| traitComposition |
 	traitComposition := CDTraitCompositionBuilder new
@@ -226,7 +226,7 @@ CDClassParser >> parseTraitDefinitionFromNode: aNode [
 ]
 
 { #category : #internal }
-CDClassParser >> setAdequateClassDefinitionFrom: expressionTree [
+CDClassDefinitionParser >> setAdequateClassDefinitionFrom: expressionTree [
 	"set a class or metaclass class definition as class definition object."
 	(self isInstanceSideDefinition: expressionTree)
 		ifTrue: [ self beClassDefinition ]
@@ -234,7 +234,7 @@ CDClassParser >> setAdequateClassDefinitionFrom: expressionTree [
 ]
 
 { #category : #parsing }
-CDClassParser >> visitMessageNode: aRBMessageNode [
+CDClassDefinitionParser >> visitMessageNode: aRBMessageNode [
 
 	(self isInstanceSideDefinition: aRBMessageNode)
 		ifTrue: [ "instance "

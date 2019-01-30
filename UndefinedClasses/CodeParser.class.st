@@ -18,7 +18,7 @@ CodeParser >> parse: aString [
 	^ [ RBParser parseMethod: aString ]
 		on: Notification
 		do: [  ast := RBParser parseExpression: aString.
-				[ CDClassParser fromASTNode: ast ]
+				[ CDClassDefinitionParser fromASTNode: ast ]
 					on: Notification
 					do: [ ast ] ]
 ]
