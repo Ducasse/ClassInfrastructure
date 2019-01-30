@@ -1,3 +1,11 @@
+"
+I'm the common superclass of all the class definition nodes. 
+A class definition is an object that is built out of the message sent to a class by the class definition parser. 
+
+I keep a reference to the original method node (originalNode) I'm created from. 
+
+Please note the vocabulary, we use the term class definition and class definition parser to refer to the class definition only and not the class with its methods. 
+"
 Class {
 	#name : #CDNode,
 	#superclass : #Object,
