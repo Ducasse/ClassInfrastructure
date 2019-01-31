@@ -105,13 +105,13 @@ CDBehaviorParserTest >> testBestNodeForSecondInstanceVariableSelectionShouldBeSe
 ]
 
 { #category : #tests }
-CDBehaviorParserTest >> testClassDefinitionFromLegacyClassDefinitionStringHasClassName [
+CDBehaviorParserTest >> testClassDefFromLegacyStringHasClassName [
 
 	self assert: classDefinition className equals: self className
 ]
 
 { #category : #tests }
-CDBehaviorParserTest >> testClassDefinitionFromLegacyClassDefinitionStringHasSlots [
+CDBehaviorParserTest >> testClassDefFromLegacyStringHasSlots [
 
 	self assert: classDefinition slotNodes first name equals: self firstInstanceVariableName.
 	self assert: classDefinition slotNodes second name equals: self secondInstanceVariableName.

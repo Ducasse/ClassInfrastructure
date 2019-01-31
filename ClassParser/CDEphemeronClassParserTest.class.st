@@ -1,6 +1,6 @@
 Class {
 	#name : #CDEphemeronClassParserTest,
-	#superclass : #CDClassParserTest,
+	#superclass : #CDClassDefinitionParserTest,
 	#category : #'ClassParser-Test'
 }
 

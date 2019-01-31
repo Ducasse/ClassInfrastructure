@@ -1,6 +1,6 @@
 Class {
 	#name : #CDVariableClassParserTest,
-	#superclass : #CDClassParserTest,
+	#superclass : #CDClassDefinitionParserTest,
 	#category : #'ClassParser-Test'
 }
 
