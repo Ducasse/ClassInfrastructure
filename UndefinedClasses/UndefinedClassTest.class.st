@@ -72,7 +72,7 @@ UndefinedClassTest >> testCreateSubclassOfNilCreatesSubclassOfProtoObject [
 		package: ''Box'''.
 	
 	self assertClassExist: #ColoredFoo.
-	self assert: (self class environment at: #ColoredFoo) superclass equals: ProtoObject.
+	self assert: (self class environment at: #ColoredFoo) superclass equals: Object.
 ]
 
 { #category : #tests }
