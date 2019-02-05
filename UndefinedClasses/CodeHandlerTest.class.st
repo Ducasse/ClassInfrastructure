@@ -9,7 +9,6 @@ CodeHandlerTest >> testArbitraryExpressionStringReturnsProgramNodeThatIsNotMetho
 
 	| astNode |
 	astNode := CodeParser parse: '1 + ( self foo: #( asd gdf 434 4.0 ))'.
-		
 	self assert: astNode isMessage
 ]
 
@@ -21,7 +20,6 @@ CodeHandlerTest >> testClassDefinitionStringReturnsClassDefinitionNode [
 		instanceVariableNames: ''''
 		classVariableNames:''''
 		package: ''Box'''.
-		
 	self assert: astNode isClassDefinition
 ]
 
@@ -31,6 +29,5 @@ CodeHandlerTest >> testMethodDefinitionStringReturnsMethodNode [
 	| astNode |
 	astNode := CodeParser parse: 'm1
 	^ self foo'.
-		
 	self assert: astNode isMethod
 ]

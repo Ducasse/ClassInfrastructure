@@ -1,5 +1,5 @@
 "
-Test Cases:
+Test Cases to be covered in the future
 
  - Have an undefined class with methods and change the superclass
  - Have an undefined class and instantiate it

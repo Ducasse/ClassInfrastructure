@@ -1,3 +1,7 @@
+"
+A simple API to get the system working for now. 
+Should be removed in the future. 
+"
 Class {
 	#name : #CodeParser,
 	#superclass : #Object,

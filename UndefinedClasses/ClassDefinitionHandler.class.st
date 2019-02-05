@@ -1,3 +1,7 @@
+"
+I'm responsible for the creation of class or undefinedClass subclasses when needed.
+I may be merged in another class in the future. 
+"
 Class {
 	#name : #ClassDefinitionHandler,
 	#superclass : #Object,

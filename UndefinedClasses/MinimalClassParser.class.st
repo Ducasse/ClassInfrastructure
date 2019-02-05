@@ -1,3 +1,7 @@
+"
+Unclear if we will keep it. 
+This minimal class parser is just to make sure that we do not need the full parser to manage undefinedClasses.
+"
 Class {
 	#name : #MinimalClassParser,
 	#superclass : #Object,
