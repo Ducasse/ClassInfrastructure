@@ -62,7 +62,7 @@ UndefinedClassTest >> testCreateSubclassOfArbitraryExpressionReturningNilThrowsE
 ]
 
 { #category : #tests }
-UndefinedClassTest >> testCreateSubclassOfNilCreatesSubclassOfProtoObject [
+UndefinedClassTest >> testCreateSubclassOfNilCreatesSubclassOfObject [
 
 	self assertClassDoesNotExist: #ColoredFoo.
 
