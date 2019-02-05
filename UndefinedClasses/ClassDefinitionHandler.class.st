@@ -1,6 +1,8 @@
 "
 I'm responsible for the creation of class or undefinedClass subclasses when needed.
-I may be merged in another class in the future. 
+I will be merged in a system class in the future. Right now I'm here to play the game of an infrastructure class. 
+
+I use UndefinedClassHandler to manage undefined classes. 
 "
 Class {
 	#name : #ClassDefinitionHandler,

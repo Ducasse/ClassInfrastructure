@@ -1,3 +1,8 @@
+"
+I'm responsible for the creation of UndefinedClasses. 
+
+I'm used by ClassDefinitionHandler (which will be merged into another infrastructure class) and I use the MinimalClassParser to extract information so that I can create a undefined class. 
+"
 Class {
 	#name : #UndefinedClassHandler,
 	#superclass : #Object,
