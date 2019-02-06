@@ -4,6 +4,9 @@ I am a parser for generating an AST of classes from a string, i am only used in 
 Class {
 	#name : #CodeParser,
 	#superclass : #Object,
+	#instVars : [
+		'originalString'
+	],
 	#category : #'UndefinedClasses-Core'
 }
 

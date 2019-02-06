@@ -1,5 +1,5 @@
 "
-I'm an error signaled when an UndefinedClass class didn't initialize properly.
+I'm an error signaled when an UndefinedClass received an unknown message or try to initialie instance
 "
 Class {
 	#name : #UndefinedClassError,
