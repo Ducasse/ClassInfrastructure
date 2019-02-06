@@ -1,3 +1,6 @@
+"
+I am an handler in charge of the creation of Classes from aString
+"
 Class {
 	#name : #ClassDefinitionHandler,
 	#superclass : #Object,

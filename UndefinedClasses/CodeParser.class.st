@@ -1,3 +1,6 @@
+"
+I am a parser for generating an AST of classes from a string, i am only used in tests for the moment
+"
 Class {
 	#name : #CodeParser,
 	#superclass : #Object,

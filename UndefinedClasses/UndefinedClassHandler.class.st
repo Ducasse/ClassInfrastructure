@@ -1,3 +1,6 @@
+"
+I am an handler for the creation of UndefinedClass
+"
 Class {
 	#name : #UndefinedClassHandler,
 	#superclass : #Object,
@@ -6,6 +9,7 @@ Class {
 
 { #category : #handle }
 UndefinedClassHandler >> handleDefinitionString: aString [
+	"transform aString into a parsed object aParser"
 	
 	^ self handleDefinitionWithParser: (MinimalClassParser new parseDefinition: aString)
 ]

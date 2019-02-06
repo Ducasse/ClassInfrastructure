@@ -1,3 +1,6 @@
+"
+I am a parser in use for generating an AST of classes from a string
+"
 Class {
 	#name : #MinimalClassParser,
 	#superclass : #Object,
