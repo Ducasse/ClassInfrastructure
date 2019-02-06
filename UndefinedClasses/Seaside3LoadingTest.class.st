@@ -104,6 +104,13 @@ modifiedMCPackages do: [ :p |
 ]
 
 { #category : #accessing }
+Seaside3LoadingTest >> runCaseManaged [
+	"work around the time out mechanism (long running test) "
+
+	^ self runCase
+]
+
+{ #category : #accessing }
 Seaside3LoadingTest >> seasidePackagesToLoad [
 	^ {'Grease-Core-JohanBrichau.97' -> 'http://smalltalkhub.com/mc/Seaside/Grease11/main/'.
 'Grease-Pharo30-Core-PavelKrivanek.22' -> 'http://smalltalkhub.com/mc/Seaside/Grease11/main/'.
@@ -178,12 +185,6 @@ Seaside3LoadingTest >> seasideTestCases [
 	].
 
 	^ testClasses
-]
-
-{ #category : #initialization }
-Seaside3LoadingTest >> setUp [
-	super setUp.
-	
 ]
 
 { #category : #tests }
