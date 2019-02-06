@@ -96,6 +96,13 @@ CDNode >> originalNode: aNode [
 	originalNode := aNode
 ]
 
+{ #category : #accessing }
+CDNode >> originalNodeSource [
+
+	^originalNode source.
+	
+]
+
 { #category : #selection }
 CDNode >> start [
 	
