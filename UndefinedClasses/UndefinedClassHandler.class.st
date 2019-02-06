@@ -11,7 +11,7 @@ Class {
 UndefinedClassHandler >> handleDefinitionString: aString [
 	"transform aString into a parsed object aParser"
 	
-	^ self handleDefinitionWithParser: (MinimalClassParser new parseDefinition: aString)
+	^ self handleDefinitionWithParser: (CodeParser new parse: aString)
 ]
 
 { #category : #handle }
@@ -23,10 +23,10 @@ UndefinedClassHandler >> handleDefinitionWithParser: aParser [
 		ifPresent: [ :class | ^ class ].
 
 	UndefinedClass
-		createUndefinedClassNamed: aParser superClassName
+		createUndefinedClassNamed: aParser superclassName
 		package: aParser packageName.
 	newClass := Smalltalk compilerClass new
-		source: aParser originalString;
+		source: aParser originalNodeSource;
 		evaluate.
 	^ newClass
 ]
