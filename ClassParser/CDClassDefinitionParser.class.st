@@ -51,7 +51,7 @@ CDClassDefinitionParser >> classVariableNames: aNode [
 	slotNodes := slots
 		collect: [ :slotName | | start |
 			start := aNode start + (classVariablesString findString: slotName).
-			CDSharedSlotNode
+			CDSharedVariableNode
 				node: aNode
 				name: slotName
 				typeName: 'ClassVariableSlot'

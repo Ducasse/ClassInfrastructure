@@ -1,11 +1,11 @@
 Class {
-	#name : #CDSharedSlotNode,
+	#name : #CDSharedVariableNode,
 	#superclass : #CDSlotNode,
 	#category : #'ClassParser-Model'
 }
 
 { #category : #'instance-creation' }
-CDSharedSlotNode class >> slot: aSlot node: aNode [ 
+CDSharedVariableNode class >> slot: aSlot node: aNode [ 
 	
 	^ self new
 		slot: aSlot;
@@ -14,7 +14,7 @@ CDSharedSlotNode class >> slot: aSlot node: aNode [
 ]
 
 { #category : #suggestions }
-CDSharedSlotNode >> specialCommands [
+CDSharedVariableNode >> specialCommands [
 	
 	^ SugsSuggestionFactory commandsForClassVariable
 ]
