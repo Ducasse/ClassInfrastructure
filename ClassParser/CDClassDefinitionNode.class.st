@@ -65,9 +65,9 @@ CDClassDefinitionNode >> sharedSlotNodes [
 
 { #category : #accessing }
 CDClassDefinitionNode >> sharedSlots [
-	
-	sharedSlotNodes ifNil: [ 
-		sharedSlotNodes := originalNode arguments third value substrings collect: [ :each | each asClassVariable ] ].
+	sharedSlotNodes ifNil:[
+		sharedSlotNodes := Array new.
+		].
 	^ sharedSlotNodes
 ]
 
