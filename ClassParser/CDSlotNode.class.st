@@ -25,6 +25,11 @@ CDSlotNode class >> node: aNode name: aName typeName: aTypeName start: start sto
 		yourself
 ]
 
+{ #category : #transforming }
+CDSlotNode >> asSlot [
+	^self name asSlot
+]
+
 { #category : #accessing }
 CDSlotNode >> index: anInteger [ 
 	
