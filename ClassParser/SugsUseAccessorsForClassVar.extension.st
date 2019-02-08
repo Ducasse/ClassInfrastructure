@@ -2,5 +2,5 @@ Extension { #name : #SugsUseAccessorsForClassVar }
 
 { #category : #'*ClassParser' }
 SugsUseAccessorsForClassVar class >> nodes [
-	^{RBGlobalNode . CDSharedSlotNode }
+	^{RBGlobalNode . CDSharedVariableNode }
 ]
