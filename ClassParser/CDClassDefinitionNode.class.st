@@ -35,7 +35,7 @@ CDClassDefinitionNode >> isClassDefinition [
 { #category : #accessing }
 CDClassDefinitionNode >> packageName [
 	
-	^ packageNameNode value asSymbol 
+	^ packageNameNode ifNotNil: [packageNameNode value asSymbol ]
 ]
 
 { #category : #accessing }
@@ -49,6 +49,12 @@ CDClassDefinitionNode >> packageNameNode: aNode astNode: astNode [
 
 	packageNameNode := aNode.
 	children add: aNode.
+]
+
+{ #category : #accessing }
+CDClassDefinitionNode >> sharedPools [
+	sharedPools ifNil: [ self sharedPools: OrderedCollection new. ].
+	^sharedPools
 ]
 
 { #category : #accessing }

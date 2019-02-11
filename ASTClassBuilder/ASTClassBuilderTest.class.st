@@ -68,6 +68,21 @@ ASTClassBuilderTest >> testCreateNormalClassWithIV [
 ]
 
 { #category : #running }
+ASTClassBuilderTest >> testCreateNormalClassWithPackage [
+
+   | ast class |
+
+	ast := CDClassDefinitionParser parse: 'Class subclass: #TestSubClass
+															package: ''Kernel-Classes'''.
+	class := ShiftClassBuilder new
+		buildEnvironment: self environment;
+		nameAST: ast;
+		build.
+		
+	self assert: class category equals: #Unclassified
+]
+
+{ #category : #running }
 ASTClassBuilderTest >> testCreateNormalClassWithSharedPools [
 
    | ast class resTest|
