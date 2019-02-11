@@ -36,3 +36,50 @@ ASTClassBuilderTest >> testCreateNormalClassSuperClass [
 		
 	self assert: class superclass equals: Class
 ]
+
+{ #category : #running }
+ASTClassBuilderTest >> testCreateNormalClassWithClassVariable [
+
+   | ast class |
+
+	ast := CDClassDefinitionParser parse: 'Class subclass: #TestSubClass
+															classVariableNames: ''var classVar pouet'' '.
+	class := ShiftClassBuilder new
+		buildEnvironment: self environment;
+		nameAST: ast;
+		build.
+		
+	self assert: class classVariableString equals: '#classVar #pouet #var'
+]
+
+{ #category : #running }
+ASTClassBuilderTest >> testCreateNormalClassWithIV [
+
+   | ast class |
+
+	ast := CDClassDefinitionParser parse: 'Class subclass: #TestSubClass
+															instanceVariableNames: '''''.
+	class := ShiftClassBuilder new
+		buildEnvironment: self environment;
+		nameAST: ast;
+		build.
+		
+	self assert: class instanceVariablesString equals: ''
+]
+
+{ #category : #running }
+ASTClassBuilderTest >> testCreateNormalClassWithSharedPools [
+
+   | ast class resTest|
+
+	ast := CDClassDefinitionParser parse: 'Class subclass: #TestSubClass
+															poolDictionaries: ''TestSharedPool ShTestSharedPool'''.
+	class := ShiftClassBuilder new
+		buildEnvironment: self environment;
+		nameAST: ast;
+		build.
+	resTest:= OrderedCollection new.
+	resTest add: 'TestSharedPool' asSymbol.
+	resTest add: 'ShTestSharedPool' asSymbol.
+	self assert: class sharedPoolNames equals: resTest.
+]
