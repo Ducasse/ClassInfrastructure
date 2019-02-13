@@ -219,3 +219,39 @@ ASTClassBuilderTest >> testCreateNormalClassWithTraitComposition [
 	self assert: (class isComposedBy: TAddForUniquenessTest).
 	self assert: (class isComposedBy: TIncludesWithIdentityCheckTest).
 ]
+
+{ #category : #running }
+ASTClassBuilderTest >> testCreateVariableByteClassNamed [
+
+   | ast class |
+
+	ast := CDClassDefinitionParser parse: 'Class variableByteSubclass: #TestSubClass'.
+	
+	class := ShiftClassBuilder new
+		buildEnvironment: self environment;
+		nameAST: ast;
+		build.
+		
+	self assert: class name equals: #TestSubClass
+]
+
+{ #category : #running }
+ASTClassBuilderTest >> testCreateVariableByteClassWithAll [
+
+   | ast class |
+
+	ast := CDClassDefinitionParser parse: 'Class variableByteSubclass: #TestSubClass
+															uses:   TAddForUniquenessTest + TIncludesWithIdentityCheckTest
+															instanceVariableNames: ''cat env''
+															classVariableNames: ''var classVar pouet''
+															poolDictionaries: ''TestSharedPool ShTestSharedPool''
+															package: ''Kernel-Classes''' .
+															
+	class := ShiftClassBuilder new
+		buildEnvironment: self environment;
+		nameAST: ast;
+		build.
+		
+	self assert:	class name equals: #TestSubClass	.
+	self assert: class instanceVariablesString equals: 'cat env'
+]
