@@ -255,3 +255,75 @@ ASTClassBuilderTest >> testCreateVariableByteClassWithAll [
 	self assert:	class name equals: #TestSubClass	.
 	self assert: class instanceVariablesString equals: 'cat env'
 ]
+
+{ #category : #running }
+ASTClassBuilderTest >> testCreateVariableClassNamed [
+
+   | ast class |
+
+	ast := CDClassDefinitionParser parse: 'Class variableSubclass: #TestSubClass'.
+	
+	class := ShiftClassBuilder new
+		buildEnvironment: self environment;
+		nameAST: ast;
+		build.
+		
+	self assert: class name equals: #TestSubClass
+]
+
+{ #category : #running }
+ASTClassBuilderTest >> testCreateVariableClassWithAll [
+
+   | ast class |
+
+	ast := CDClassDefinitionParser parse: 'Class variableSubclass: #TestSubClass
+															uses:   TAddForUniquenessTest + TIncludesWithIdentityCheckTest
+															instanceVariableNames: ''cat env''
+															classVariableNames: ''var classVar pouet''
+															poolDictionaries: ''TestSharedPool ShTestSharedPool''
+															package: ''Kernel-Classes''' .
+															
+	class := ShiftClassBuilder new
+		buildEnvironment: self environment;
+		nameAST: ast;
+		build.
+		
+	self assert:	class name equals: #TestSubClass	.
+	self assert: class instanceVariablesString equals: 'cat env'
+]
+
+{ #category : #running }
+ASTClassBuilderTest >> testCreateVariableWordClassNamed [
+
+   | ast class |
+
+	ast := CDClassDefinitionParser parse: 'Class variableWordSubclass: #TestSubClass'.
+	
+	class := ShiftClassBuilder new
+		buildEnvironment: self environment;
+		nameAST: ast;
+		build.
+		
+	self assert: class name equals: #TestSubClass
+]
+
+{ #category : #running }
+ASTClassBuilderTest >> testCreateVariableWordClassWithAll [
+
+   | ast class |
+
+	ast := CDClassDefinitionParser parse: 'Class variableWordSubclass: #TestSubClass
+															uses:   TAddForUniquenessTest + TIncludesWithIdentityCheckTest
+															instanceVariableNames: ''cat env''
+															classVariableNames: ''var classVar pouet''
+															poolDictionaries: ''TestSharedPool ShTestSharedPool''
+															package: ''Kernel-Classes''' .
+															
+	class := ShiftClassBuilder new
+		buildEnvironment: self environment;
+		nameAST: ast;
+		build.
+		
+	self assert:	class name equals: #TestSubClass	.
+	self assert: class instanceVariablesString equals: 'cat env'
+]
