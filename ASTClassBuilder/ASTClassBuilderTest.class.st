@@ -1,3 +1,6 @@
+"
+I am testing the creation of Classes from an AST
+"
 Class {
 	#name : #ASTClassBuilderTest,
 	#superclass : #TestCase,
@@ -83,7 +86,7 @@ ASTClassBuilderTest >> testCreateImmediateClassWithAll [
 	self assert: class classVariableString equals: '#classVar #pouet #var'
 ]
 
-{ #category : #running }
+{ #category : #NormalClass }
 ASTClassBuilderTest >> testCreateNormalClassNamed [
 
    | ast class |
@@ -97,7 +100,7 @@ ASTClassBuilderTest >> testCreateNormalClassNamed [
 	self assert: class name equals: #TestClass
 ]
 
-{ #category : #running }
+{ #category : #NormalClass }
 ASTClassBuilderTest >> testCreateNormalClassSuperClass [
 
    | ast class |
@@ -114,7 +117,7 @@ ASTClassBuilderTest >> testCreateNormalClassSuperClass [
 	
 ]
 
-{ #category : #running }
+{ #category : #NormalClass }
 ASTClassBuilderTest >> testCreateNormalClassWithClassVariable [
 
    | ast class |
@@ -129,7 +132,7 @@ ASTClassBuilderTest >> testCreateNormalClassWithClassVariable [
 	self assert: class classVariableString equals: '#classVar #pouet #var'
 ]
 
-{ #category : #running }
+{ #category : #NormalClass }
 ASTClassBuilderTest >> testCreateNormalClassWithIV [
 
    | ast class |
@@ -144,7 +147,7 @@ ASTClassBuilderTest >> testCreateNormalClassWithIV [
 	self assert: class instanceVariablesString equals: ''
 ]
 
-{ #category : #running }
+{ #category : #NormalClass }
 ASTClassBuilderTest >> testCreateNormalClassWithPackage [
 
    | ast class |
@@ -155,12 +158,12 @@ ASTClassBuilderTest >> testCreateNormalClassWithPackage [
 		buildEnvironment: self environment;
 		nameAST: ast;
 		build.
-			1halt.
+			
 	self assert: class category equals: #Unclassified
 
 ]
 
-{ #category : #running }
+{ #category : #NormalClass }
 ASTClassBuilderTest >> testCreateNormalClassWithSharedPools [
 
    | ast class resTest|
@@ -177,7 +180,7 @@ ASTClassBuilderTest >> testCreateNormalClassWithSharedPools [
 	self assert: class sharedPoolNames equals: resTest.
 ]
 
-{ #category : #running }
+{ #category : #NormalClass }
 ASTClassBuilderTest >> testCreateNormalClassWithSlots [
 
    | ast class |
@@ -195,7 +198,7 @@ ASTClassBuilderTest >> testCreateNormalClassWithSlots [
 	self assert: class instanceVariablesString equals: 'cat env'
 ]
 
-{ #category : #running }
+{ #category : #NormalClass }
 ASTClassBuilderTest >> testCreateNormalClassWithTrait [
 
    | ast class |
@@ -210,7 +213,7 @@ ASTClassBuilderTest >> testCreateNormalClassWithTrait [
 	self assert: (class isComposedBy: TOccurrencesTest).
 ]
 
-{ #category : #running }
+{ #category : #NormalClass }
 ASTClassBuilderTest >> testCreateNormalClassWithTraitComposition [
 
    | ast class |
@@ -371,4 +374,32 @@ ASTClassBuilderTest >> testCreateWeakClassWithAll [
 		
 	self assert:	class name equals: #TestSubClass	.
 	self assert: class instanceVariablesString equals: 'cat env'
+]
+
+{ #category : #resolveSuperclass }
+ASTClassBuilderTest >> testDefaultResolve [
+	| ast class |
+
+	ast := CDClassDefinitionParser parse: 'cdfgdf subclass: #TestSubClass
+															uses: TOccurrencesTest'.
+		
+		self should:[ShiftClassBuilder new 
+		buildEnvironment: self environment;
+		nameAST: ast;
+		build.] raise: Error.
+]
+
+{ #category : #resolveSuperclass }
+ASTClassBuilderTest >> testUseUndefinedClass [
+ 	
+   | ast class |
+
+	ast := CDClassDefinitionParser parse: 'PoPouet subclass: #TestClass'.
+	class := ShiftClassBuilder new
+		useUndefinedClass;
+		buildEnvironment: self environment;
+		nameAST: ast;
+		build.
+		
+	self assert: class superclass isUndefined.
 ]
