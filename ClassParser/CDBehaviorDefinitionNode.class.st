@@ -121,6 +121,12 @@ CDBehaviorDefinitionNode >> slots: aCollection [
 	
 ]
 
+{ #category : #'as yet unclassified' }
+CDBehaviorDefinitionNode >> traitDefinition [
+
+	^traitDefinition
+]
+
 { #category : #accessing }
 CDBehaviorDefinitionNode >> traitDefinition: aNode [
 

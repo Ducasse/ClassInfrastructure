@@ -116,3 +116,34 @@ ASTClassBuilderTest >> testCreateNormalClassWithSlots [
 		
 	self assert: class instanceVariablesString equals: 'cat env'
 ]
+
+{ #category : #running }
+ASTClassBuilderTest >> testCreateNormalClassWithTrait [
+
+   | ast class |
+
+	ast := CDClassDefinitionParser parse: 'Class subclass: #TestSubClass
+															uses: TOccurrencesTest'.
+	class := ShiftClassBuilder new
+		buildEnvironment: self environment;
+		nameAST: ast;
+		build.
+		
+	self assert: (class isComposedBy: TOccurrencesTest).
+]
+
+{ #category : #running }
+ASTClassBuilderTest >> testCreateNormalClassWithTraitComposition [
+
+   | ast class |
+
+	ast := CDClassDefinitionParser parse: 'Class subclass: #TestSubClass
+															uses:   TAddForUniquenessTest + TIncludesWithIdentityCheckTest + TCloneTest + TCopyTest + TRemoveTest + TGrowableTest + TStructuralEqualityTest + TPrintTest + TAsStringCommaAndDelimiterTest + TConvertTest + TConvertAsSortedTest + TConcatenationEqualElementsRemovedTest + TOccurrencesTest + (TCreationWithTest - {#testOfSize. #collectionClass}) + (TSetArithmetic - {#collectionClass})'.
+	class := ShiftClassBuilder new
+		buildEnvironment: self environment;
+		nameAST: ast;
+		build.
+		
+	self assert: (class isComposedBy: TAddForUniquenessTest).
+	self assert: (class isComposedBy: TIncludesWithIdentityCheckTest).
+]

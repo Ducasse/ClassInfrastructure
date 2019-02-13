@@ -15,6 +15,11 @@ Class {
 }
 
 { #category : #accessing }
+CDTraitCompositionNode >> subject [ 
+	^subject
+]
+
+{ #category : #accessing }
 CDTraitCompositionNode >> subject: aNode [
 
 	subject := aNode

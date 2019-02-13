@@ -222,7 +222,7 @@ CDClassDefinitionParser >> parseTraitDefinitionFromNode: aNode [
 	| traitComposition |
 	traitComposition := CDTraitCompositionBuilder new
 		buildFrom: aNode.	
-	classDefinition addChild: traitComposition.
+	classDefinition traitDefinition: traitComposition.
 ]
 
 { #category : #internal }
