@@ -10,6 +10,42 @@ ASTClassBuilderTest >> environment [
 ]
 
 { #category : #running }
+ASTClassBuilderTest >> testCreateEphemeronClassNamed [
+
+   | ast class |
+
+	ast := CDClassDefinitionParser parse: 'Class ephemeronSubclass: #TestSubClass'.
+	
+	class := ShiftClassBuilder new
+		buildEnvironment: self environment;
+		nameAST: ast;
+		build.
+		
+	self assert: class name equals: #TestSubClass
+]
+
+{ #category : #running }
+ASTClassBuilderTest >> testCreateEphemeronClassWithAll [
+
+   | ast class |
+
+	ast := CDClassDefinitionParser parse: 'Class ephemeronSubclass: #TestSubClass
+															uses:   TAddForUniquenessTest + TIncludesWithIdentityCheckTest
+															instanceVariableNames: ''cat env''
+															classVariableNames: ''var classVar pouet''
+															poolDictionaries: ''TestSharedPool ShTestSharedPool''
+															package: ''Kernel-Classes''' .
+															
+	class := ShiftClassBuilder new
+		buildEnvironment: self environment;
+		nameAST: ast;
+		build.
+		
+	self assert:	class name equals: #TestSubClass	.
+	self assert: class instanceVariablesString equals: 'cat env'
+]
+
+{ #category : #running }
 ASTClassBuilderTest >> testCreateNormalClassNamed [
 
    | ast class |
