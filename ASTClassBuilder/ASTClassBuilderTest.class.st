@@ -327,3 +327,39 @@ ASTClassBuilderTest >> testCreateVariableWordClassWithAll [
 	self assert:	class name equals: #TestSubClass	.
 	self assert: class instanceVariablesString equals: 'cat env'
 ]
+
+{ #category : #running }
+ASTClassBuilderTest >> testCreateWeakClassNamed [
+
+   | ast class |
+
+	ast := CDClassDefinitionParser parse: 'Class weakSubclass: #TestSubClass'.
+	
+	class := ShiftClassBuilder new
+		buildEnvironment: self environment;
+		nameAST: ast;
+		build.
+		
+	self assert: class name equals: #TestSubClass
+]
+
+{ #category : #running }
+ASTClassBuilderTest >> testCreateWeakClassWithAll [
+
+   | ast class |
+
+	ast := CDClassDefinitionParser parse: 'Class weakSubclass: #TestSubClass
+															uses:   TAddForUniquenessTest + TIncludesWithIdentityCheckTest
+															instanceVariableNames: ''cat env''
+															classVariableNames: ''var classVar pouet''
+															poolDictionaries: ''TestSharedPool ShTestSharedPool''
+															package: ''Kernel-Classes''' .
+															
+	class := ShiftClassBuilder new
+		buildEnvironment: self environment;
+		nameAST: ast;
+		build.
+		
+	self assert:	class name equals: #TestSubClass	.
+	self assert: class instanceVariablesString equals: 'cat env'
+]
