@@ -21,7 +21,7 @@ ASTClassBuilderTest >> testCreateEphemeronClassNamed [
 	
 	class := ShiftClassBuilder new
 		buildEnvironment: self environment;
-		nameAST: ast;
+		buildFromAST: ast;
 		build.
 		
 	self assert: class name equals: #TestSubClass
@@ -41,7 +41,7 @@ ASTClassBuilderTest >> testCreateEphemeronClassWithAll [
 															
 	class := ShiftClassBuilder new
 		buildEnvironment: self environment;
-		nameAST: ast;
+		buildFromAST: ast;
 		build.
 		
 	self assert:	class name equals: #TestSubClass	.
@@ -58,7 +58,7 @@ ASTClassBuilderTest >> testCreateImmediateClassNamed [
 	
 	class := ShiftClassBuilder new
 		buildEnvironment: self environment;
-		nameAST: ast;
+		buildFromAST: ast;
 		build.
 		
 	self assert: class name equals: #TestSubClass
@@ -78,7 +78,7 @@ ASTClassBuilderTest >> testCreateImmediateClassWithAll [
 															
 	class := ShiftClassBuilder new
 		buildEnvironment: self environment;
-		nameAST: ast;
+		buildFromAST: ast;
 		build.
 		
 	self assert:	class name equals: #TestSubClass	.
@@ -94,7 +94,7 @@ ASTClassBuilderTest >> testCreateNormalClassNamed [
 	ast := CDClassDefinitionParser parse: 'Object subclass: #TestClass'.
 	class := ShiftClassBuilder new
 		buildEnvironment: self environment;
-		nameAST: ast;
+		buildFromAST: ast;
 		build.
 		
 	self assert: class name equals: #TestClass
@@ -110,10 +110,11 @@ ASTClassBuilderTest >> testCreateNormalClassSuperClass [
 	
 	class := ShiftClassBuilder new
 		buildEnvironment: self environment;
-		nameAST: ast;
+		buildFromAST: ast;
 		build.
 		
 	self assert: class superclass equals: (self environment classNamed: 'Xcrd').
+	1halt.
 	
 ]
 
@@ -126,7 +127,7 @@ ASTClassBuilderTest >> testCreateNormalClassWithClassVariable [
 															classVariableNames: ''var classVar pouet'' '.
 	class := ShiftClassBuilder new
 		buildEnvironment: self environment;
-		nameAST: ast;
+		buildFromAST: ast;
 		build.
 		
 	self assert: class classVariableString equals: '#classVar #pouet #var'
@@ -141,7 +142,7 @@ ASTClassBuilderTest >> testCreateNormalClassWithIV [
 															instanceVariableNames: '''''.
 	class := ShiftClassBuilder new
 		buildEnvironment: self environment;
-		nameAST: ast;
+		buildFromAST: ast;
 		build.
 		
 	self assert: class instanceVariablesString equals: ''
@@ -156,7 +157,7 @@ ASTClassBuilderTest >> testCreateNormalClassWithPackage [
 															package: ''Kernel-Classes'''.
 	class := ShiftClassBuilder new
 		buildEnvironment: self environment;
-		nameAST: ast;
+		buildFromAST: ast;
 		build.
 			
 	self assert: class category equals: #Unclassified
@@ -172,7 +173,7 @@ ASTClassBuilderTest >> testCreateNormalClassWithSharedPools [
 															poolDictionaries: ''TestSharedPool ShTestSharedPool'''.
 	class := ShiftClassBuilder new
 		buildEnvironment: self environment;
-		nameAST: ast;
+		buildFromAST: ast;
 		build.
 	resTest:= OrderedCollection new.
 	resTest add: 'TestSharedPool' asSymbol.
@@ -192,7 +193,7 @@ ASTClassBuilderTest >> testCreateNormalClassWithSlots [
 															}.'.
 	class := ShiftClassBuilder new
 		buildEnvironment: self environment;
-		nameAST: ast;
+		buildFromAST: ast;
 		build.
 		
 	self assert: class instanceVariablesString equals: 'cat env'
@@ -207,7 +208,7 @@ ASTClassBuilderTest >> testCreateNormalClassWithTrait [
 															uses: TOccurrencesTest'.
 	class := ShiftClassBuilder new
 		buildEnvironment: self environment;
-		nameAST: ast;
+		buildFromAST: ast;
 		build.
 		
 	self assert: (class isComposedBy: TOccurrencesTest).
@@ -222,7 +223,7 @@ ASTClassBuilderTest >> testCreateNormalClassWithTraitComposition [
 															uses:   TAddForUniquenessTest + TIncludesWithIdentityCheckTest + TCloneTest + TCopyTest + TRemoveTest + TGrowableTest + TStructuralEqualityTest + TPrintTest + TAsStringCommaAndDelimiterTest + TConvertTest + TConvertAsSortedTest + TConcatenationEqualElementsRemovedTest + TOccurrencesTest + (TCreationWithTest - {#testOfSize. #collectionClass}) + (TSetArithmetic - {#collectionClass})'.
 	class := ShiftClassBuilder new
 		buildEnvironment: self environment;
-		nameAST: ast;
+		buildFromAST: ast;
 		build.
 		
 	self assert: (class isComposedBy: TAddForUniquenessTest).
@@ -238,7 +239,7 @@ ASTClassBuilderTest >> testCreateVariableByteClassNamed [
 	
 	class := ShiftClassBuilder new
 		buildEnvironment: self environment;
-		nameAST: ast;
+		buildFromAST: ast;
 		build.
 		
 	self assert: class name equals: #TestSubClass
@@ -258,7 +259,7 @@ ASTClassBuilderTest >> testCreateVariableByteClassWithAll [
 															
 	class := ShiftClassBuilder new
 		buildEnvironment: self environment;
-		nameAST: ast;
+		buildFromAST: ast;
 		build.
 		
 	self assert:	class name equals: #TestSubClass	.
@@ -275,7 +276,7 @@ ASTClassBuilderTest >> testCreateVariableClassNamed [
 	
 	class := ShiftClassBuilder new
 		buildEnvironment: self environment;
-		nameAST: ast;
+		buildFromAST: ast;
 		build.
 		
 	self assert: class name equals: #TestSubClass
@@ -295,7 +296,7 @@ ASTClassBuilderTest >> testCreateVariableClassWithAll [
 															
 	class := ShiftClassBuilder new
 		buildEnvironment: self environment;
-		nameAST: ast;
+		buildFromAST: ast;
 		build.
 		
 	self assert:	class name equals: #TestSubClass	.
@@ -312,7 +313,7 @@ ASTClassBuilderTest >> testCreateVariableWordClassNamed [
 	
 	class := ShiftClassBuilder new
 		buildEnvironment: self environment;
-		nameAST: ast;
+		buildFromAST: ast;
 		build.
 		
 	self assert: class name equals: #TestSubClass
@@ -332,7 +333,7 @@ ASTClassBuilderTest >> testCreateVariableWordClassWithAll [
 															
 	class := ShiftClassBuilder new
 		buildEnvironment: self environment;
-		nameAST: ast;
+		buildFromAST: ast;
 		build.
 		
 	self assert:	class name equals: #TestSubClass	.
@@ -349,7 +350,7 @@ ASTClassBuilderTest >> testCreateWeakClassNamed [
 	
 	class := ShiftClassBuilder new
 		buildEnvironment: self environment;
-		nameAST: ast;
+		buildFromAST: ast;
 		build.
 		
 	self assert: class name equals: #TestSubClass
@@ -369,7 +370,7 @@ ASTClassBuilderTest >> testCreateWeakClassWithAll [
 															
 	class := ShiftClassBuilder new
 		buildEnvironment: self environment;
-		nameAST: ast;
+		buildFromAST: ast;
 		build.
 		
 	self assert:	class name equals: #TestSubClass	.
@@ -385,7 +386,7 @@ ASTClassBuilderTest >> testDefaultResolve [
 		
 		self should:[ShiftClassBuilder new 
 		buildEnvironment: self environment;
-		nameAST: ast;
+		buildFromAST: ast;
 		build.] raise: Error.
 ]
 
@@ -398,7 +399,7 @@ ASTClassBuilderTest >> testUseUndefinedClass [
 	class := ShiftClassBuilder new
 		useUndefinedClass;
 		buildEnvironment: self environment;
-		nameAST: ast;
+		buildFromAST: ast;
 		build.
 		
 	self assert: class superclass isUndefined.

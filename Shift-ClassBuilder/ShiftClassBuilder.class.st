@@ -96,6 +96,29 @@ ShiftClassBuilder >> buildEnvironment: anObject [
 	buildEnvironment := anObject
 ]
 
+{ #category : #classAST }
+ShiftClassBuilder >> buildFromAST: aCDClassDefinitionNode [ 
+
+	self name: aCDClassDefinitionNode className.
+
+	self superclass: (superclassResolver resolve: aCDClassDefinitionNode superclassName inEnv: buildEnvironment).
+	
+	self slots: (aCDClassDefinitionNode slots collect: [:e| e asSlot]).
+	self sharedVariables:(aCDClassDefinitionNode sharedSlots collect: [:e| e]).
+	self category: aCDClassDefinitionNode packageName.
+	self layoutDefinition sharedPools: (aCDClassDefinitionNode sharedPools collect: [:e | e name]).
+	
+	aCDClassDefinitionNode traitDefinition ifNotNil:[:traitDef| traitDef originalNode formattedCode.
+	self traitComposition: 
+	(self class compiler 
+	source: traitDef originalNode formattedCode;
+	"environment: buildEnvironment;"
+	evaluate)].
+
+	
+
+]
+
 { #category : #accessing }
 ShiftClassBuilder >> builderEnhancer [
 	^ builderEnhancer ifNil: [ self detectBuilderEnhancer ]
@@ -383,29 +406,6 @@ ShiftClassBuilder >> name [
 ShiftClassBuilder >> name: anObject [
 	name := anObject.
 	self validateClassName.
-]
-
-{ #category : #classAST }
-ShiftClassBuilder >> nameAST: aCDClassDefinitionNode [ 
-
-	self name: aCDClassDefinitionNode className.
-
-	self superclass: (superclassResolver resolve: aCDClassDefinitionNode superclassName inEnv: buildEnvironment).
-	
-	self slots: (aCDClassDefinitionNode slots collect: [:e| e asSlot]).
-	self sharedVariables:(aCDClassDefinitionNode sharedSlots collect: [:e| e]).
-	self category: aCDClassDefinitionNode packageName.
-	self layoutDefinition sharedPools: (aCDClassDefinitionNode sharedPools collect: [:e | e name]).
-	
-	aCDClassDefinitionNode traitDefinition ifNotNil:[:traitDef| traitDef originalNode formattedCode.
-	self traitComposition: 
-	(self class compiler 
-	source: traitDef originalNode formattedCode;
-	"environment: buildEnvironment;"
-	evaluate)].
-
-	
-
 ]
 
 { #category : #accessing }
