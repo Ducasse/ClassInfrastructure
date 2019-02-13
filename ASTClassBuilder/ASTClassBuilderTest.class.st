@@ -42,7 +42,8 @@ ASTClassBuilderTest >> testCreateEphemeronClassWithAll [
 		build.
 		
 	self assert:	class name equals: #TestSubClass	.
-	self assert: class instanceVariablesString equals: 'cat env'
+	self assert: class instanceVariablesString equals: 'cat env'.
+	self assert: class classVariableString equals: '#classVar #pouet #var'
 ]
 
 { #category : #running }
@@ -78,7 +79,8 @@ ASTClassBuilderTest >> testCreateImmediateClassWithAll [
 		build.
 		
 	self assert:	class name equals: #TestSubClass	.
-	self assert: class instanceVariablesString equals: 'cat env'
+	self assert: class instanceVariablesString equals: 'cat env'.
+	self assert: class classVariableString equals: '#classVar #pouet #var'
 ]
 
 { #category : #running }
@@ -100,13 +102,16 @@ ASTClassBuilderTest >> testCreateNormalClassSuperClass [
 
    | ast class |
 
-	ast := CDClassDefinitionParser parse: 'Class subclass: #TestSubClass'.
+	ast := CDClassDefinitionParser parse: 'Xcrd subclass: #TestSubClass'.
+															
+	
 	class := ShiftClassBuilder new
 		buildEnvironment: self environment;
 		nameAST: ast;
 		build.
 		
-	self assert: class superclass equals: Class
+	self assert: class superclass equals: (self environment classNamed: 'Xcrd').
+	
 ]
 
 { #category : #running }
@@ -150,8 +155,9 @@ ASTClassBuilderTest >> testCreateNormalClassWithPackage [
 		buildEnvironment: self environment;
 		nameAST: ast;
 		build.
-		
+			1halt.
 	self assert: class category equals: #Unclassified
+
 ]
 
 { #category : #running }
@@ -253,7 +259,8 @@ ASTClassBuilderTest >> testCreateVariableByteClassWithAll [
 		build.
 		
 	self assert:	class name equals: #TestSubClass	.
-	self assert: class instanceVariablesString equals: 'cat env'
+	self assert: class instanceVariablesString equals: 'cat env'.
+	self assert: class classVariableString equals: '#classVar #pouet #var'
 ]
 
 { #category : #running }
@@ -289,7 +296,8 @@ ASTClassBuilderTest >> testCreateVariableClassWithAll [
 		build.
 		
 	self assert:	class name equals: #TestSubClass	.
-	self assert: class instanceVariablesString equals: 'cat env'
+	self assert: class instanceVariablesString equals: 'cat env'.
+	self assert: class classVariableString equals: '#classVar #pouet #var'
 ]
 
 { #category : #running }
@@ -325,7 +333,8 @@ ASTClassBuilderTest >> testCreateVariableWordClassWithAll [
 		build.
 		
 	self assert:	class name equals: #TestSubClass	.
-	self assert: class instanceVariablesString equals: 'cat env'
+	self assert: class instanceVariablesString equals: 'cat env'.
+	self assert: class classVariableString equals: '#classVar #pouet #var'
 ]
 
 { #category : #running }
