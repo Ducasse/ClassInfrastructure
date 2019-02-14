@@ -114,7 +114,7 @@ ASTClassBuilderTest >> testCreateNormalClassSuperClass [
 		build.
 		
 	self assert: class superclass equals: (self environment classNamed: 'Xcrd').
-	1halt.
+	
 	
 ]
 
@@ -396,11 +396,12 @@ ASTClassBuilderTest >> testUseUndefinedClass [
    | ast class |
 
 	ast := CDClassDefinitionParser parse: 'PoPouet subclass: #TestClass'.
-	class := ShiftClassBuilder new
-		useUndefinedClass;
-		buildEnvironment: self environment;
-		buildFromAST: ast;
-		build.
-		
-	self assert: class superclass isUndefined.
+
+	ShiftClassInstaller new
+		make: [ :builder | builder 
+					useUndefinedClass;
+					buildEnvironment: self environment;
+					buildFromAST: ast
+			 ].
+
 ]
