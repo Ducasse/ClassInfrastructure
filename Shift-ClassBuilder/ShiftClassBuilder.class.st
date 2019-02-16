@@ -102,6 +102,13 @@ ShiftClassBuilder >> buildFromAST: aCDClassDefinitionNode [
 	self name: aCDClassDefinitionNode className.
 
 	self superclass: (superclassResolver resolve: aCDClassDefinitionNode superclassName inEnv: buildEnvironment).
+		
+	aCDClassDefinitionNode isEphemeron ifTrue:[self layoutClass: EphemeronLayout].
+	aCDClassDefinitionNode isWeak ifTrue:[self layoutClass: WeakLayout].
+	aCDClassDefinitionNode isImmediate ifTrue:[self layoutClass: ImmediateLayout].
+	aCDClassDefinitionNode isVariable ifTrue:[self layoutClass: VariableLayout].
+	aCDClassDefinitionNode isWords ifTrue:[self layoutClass: WordLayout].
+	aCDClassDefinitionNode isBytes ifTrue:[self layoutClass: ByteLayout].
 	
 	self slots: (aCDClassDefinitionNode slots collect: [:e| e asSlot]).
 	self sharedVariables:(aCDClassDefinitionNode sharedSlots collect: [:e| e]).

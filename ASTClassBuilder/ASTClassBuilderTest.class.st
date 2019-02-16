@@ -24,6 +24,7 @@ ASTClassBuilderTest >> testCreateEphemeronClassNamed [
 		buildFromAST: ast;
 		build.
 		
+	self assert: class isEphemeronClass.
 	self assert: class name equals: #TestSubClass
 ]
 
@@ -44,9 +45,10 @@ ASTClassBuilderTest >> testCreateEphemeronClassWithAll [
 		buildFromAST: ast;
 		build.
 		
+	self assert: class isEphemeronClass.
 	self assert:	class name equals: #TestSubClass	.
 	self assert: class instanceVariablesString equals: 'cat env'.
-	self assert: class classVariableString equals: '#classVar #pouet #var'
+	self assert: class classVarNames equals: #(#classVar #pouet #var)
 ]
 
 { #category : #running }
@@ -61,6 +63,7 @@ ASTClassBuilderTest >> testCreateImmediateClassNamed [
 		buildFromAST: ast;
 		build.
 		
+	self assert: class isImmediateClass.
 	self assert: class name equals: #TestSubClass
 ]
 
@@ -81,9 +84,10 @@ ASTClassBuilderTest >> testCreateImmediateClassWithAll [
 		buildFromAST: ast;
 		build.
 		
+	self assert: class isImmediateClass.
 	self assert:	class name equals: #TestSubClass	.
-	self assert: class instanceVariablesString equals: 'cat env'.
-	self assert: class classVariableString equals: '#classVar #pouet #var'
+	self assert: class instanceVariablesString equals: ''.
+	self assert: class classVarNames equals: #(#classVar #pouet #var)
 ]
 
 { #category : #NormalClass }
@@ -109,6 +113,7 @@ ASTClassBuilderTest >> testCreateNormalClassSuperClass [
 															
 	
 	class := ShiftClassBuilder new
+	useUndefinedClass;
 		buildEnvironment: self environment;
 		buildFromAST: ast;
 		build.
@@ -130,7 +135,7 @@ ASTClassBuilderTest >> testCreateNormalClassWithClassVariable [
 		buildFromAST: ast;
 		build.
 		
-	self assert: class classVariableString equals: '#classVar #pouet #var'
+	self assert: class classVarNames equals: #(#classVar #pouet #var)
 ]
 
 { #category : #NormalClass }
@@ -264,7 +269,7 @@ ASTClassBuilderTest >> testCreateVariableByteClassWithAll [
 		
 	self assert:	class name equals: #TestSubClass	.
 	self assert: class instanceVariablesString equals: 'cat env'.
-	self assert: class classVariableString equals: '#classVar #pouet #var'
+	self assert: class classVarNames equals: #(#classVar #pouet #var)
 ]
 
 { #category : #running }
@@ -279,6 +284,7 @@ ASTClassBuilderTest >> testCreateVariableClassNamed [
 		buildFromAST: ast;
 		build.
 		
+	self assert: class isVariable.
 	self assert: class name equals: #TestSubClass
 ]
 
@@ -299,9 +305,10 @@ ASTClassBuilderTest >> testCreateVariableClassWithAll [
 		buildFromAST: ast;
 		build.
 		
+	self assert: class isVariable.
 	self assert:	class name equals: #TestSubClass	.
 	self assert: class instanceVariablesString equals: 'cat env'.
-	self assert: class classVariableString equals: '#classVar #pouet #var'
+	self assert: class classVarNames equals: #(#classVar #pouet #var)
 ]
 
 { #category : #running }
@@ -338,7 +345,7 @@ ASTClassBuilderTest >> testCreateVariableWordClassWithAll [
 		
 	self assert:	class name equals: #TestSubClass	.
 	self assert: class instanceVariablesString equals: 'cat env'.
-	self assert: class classVariableString equals: '#classVar #pouet #var'
+	self assert: class classVarNames equals: #(#classVar #pouet #var)
 ]
 
 { #category : #running }
@@ -353,6 +360,7 @@ ASTClassBuilderTest >> testCreateWeakClassNamed [
 		buildFromAST: ast;
 		build.
 		
+	self assert: class isWeak.
 	self assert: class name equals: #TestSubClass
 ]
 
@@ -373,6 +381,7 @@ ASTClassBuilderTest >> testCreateWeakClassWithAll [
 		buildFromAST: ast;
 		build.
 		
+	self assert: class isWeak.
 	self assert:	class name equals: #TestSubClass	.
 	self assert: class instanceVariablesString equals: 'cat env'
 ]
