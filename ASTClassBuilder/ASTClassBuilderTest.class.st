@@ -240,13 +240,14 @@ ASTClassBuilderTest >> testCreateVariableByteClassNamed [
 
    | ast class |
 
-	ast := CDClassDefinitionParser parse: 'Class variableByteSubclass: #TestSubClass'.
+	ast := CDClassDefinitionParser parse: 'Object variableByteSubclass: #TestSubClass'.
 	
 	class := ShiftClassBuilder new
 		buildEnvironment: self environment;
 		buildFromAST: ast;
 		build.
 		
+	self assert: class isBytes.
 	self assert: class name equals: #TestSubClass
 ]
 
@@ -255,7 +256,7 @@ ASTClassBuilderTest >> testCreateVariableByteClassWithAll [
 
    | ast class |
 
-	ast := CDClassDefinitionParser parse: 'Class variableByteSubclass: #TestSubClass
+	ast := CDClassDefinitionParser parse: 'Object variableByteSubclass: #TestSubClass
 															uses:   TAddForUniquenessTest + TIncludesWithIdentityCheckTest
 															instanceVariableNames: ''cat env''
 															classVariableNames: ''var classVar pouet''
@@ -268,7 +269,7 @@ ASTClassBuilderTest >> testCreateVariableByteClassWithAll [
 		build.
 		
 	self assert:	class name equals: #TestSubClass	.
-	self assert: class instanceVariablesString equals: 'cat env'.
+	self assert: class instanceVariablesString equals: ''.
 	self assert: class classVarNames equals: #(#classVar #pouet #var)
 ]
 
@@ -316,13 +317,14 @@ ASTClassBuilderTest >> testCreateVariableWordClassNamed [
 
    | ast class |
 
-	ast := CDClassDefinitionParser parse: 'Class variableWordSubclass: #TestSubClass'.
+	ast := CDClassDefinitionParser parse: 'Object variableWordSubclass: #TestSubClass'.
 	
 	class := ShiftClassBuilder new
 		buildEnvironment: self environment;
 		buildFromAST: ast;
 		build.
 		
+	self assert: class isWords.	
 	self assert: class name equals: #TestSubClass
 ]
 
@@ -331,7 +333,7 @@ ASTClassBuilderTest >> testCreateVariableWordClassWithAll [
 
    | ast class |
 
-	ast := CDClassDefinitionParser parse: 'Class variableWordSubclass: #TestSubClass
+	ast := CDClassDefinitionParser parse: 'Object variableWordSubclass: #TestSubClass
 															uses:   TAddForUniquenessTest + TIncludesWithIdentityCheckTest
 															instanceVariableNames: ''cat env''
 															classVariableNames: ''var classVar pouet''
@@ -344,7 +346,8 @@ ASTClassBuilderTest >> testCreateVariableWordClassWithAll [
 		build.
 		
 	self assert:	class name equals: #TestSubClass	.
-	self assert: class instanceVariablesString equals: 'cat env'.
+			"should not have IV"
+	self assert: class instanceVariablesString equals: ''.
 	self assert: class classVarNames equals: #(#classVar #pouet #var)
 ]
 
