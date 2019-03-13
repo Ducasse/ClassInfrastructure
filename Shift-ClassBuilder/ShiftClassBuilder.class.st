@@ -100,9 +100,11 @@ ShiftClassBuilder >> buildEnvironment: anObject [
 ShiftClassBuilder >> buildFromAST: aCDClassDefinitionNode [ 
 
 	self name: aCDClassDefinitionNode className.
-
-	self superclass: (superclassResolver resolve: aCDClassDefinitionNode superclassName inEnv: buildEnvironment).
-		
+	aCDClassDefinitionNode superclassName = #nil ifFalse:[
+	self superclass: (superclassResolver resolve: aCDClassDefinitionNode superclassName inEnv: buildEnvironment).]
+	ifTrue:[self superclass: nil].
+	
+	self layoutClass: FixedLayout.
 	aCDClassDefinitionNode isEphemeron ifTrue:[self layoutClass: EphemeronLayout].
 	aCDClassDefinitionNode isWeak ifTrue:[self layoutClass: WeakLayout].
 	aCDClassDefinitionNode isImmediate ifTrue:[self layoutClass: ImmediateLayout].
