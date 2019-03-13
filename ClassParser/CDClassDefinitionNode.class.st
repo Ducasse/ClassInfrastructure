@@ -90,6 +90,11 @@ CDClassDefinitionNode >> superclassName [
 ]
 
 { #category : #accessing }
+CDClassDefinitionNode >> superclassName: aString [
+	superclassName := aString
+]
+
+{ #category : #accessing }
 CDClassDefinitionNode >> superclassName: aName astNode: astNode [
 	
 	superclassName := aName.
@@ -101,4 +106,9 @@ CDClassDefinitionNode >> superclassName: aName astNode: astNode [
 CDClassDefinitionNode >> superclassNameNode [
 	
 	^ superclassNameNode
+]
+
+{ #category : #accessing }
+CDClassDefinitionNode >> superclassNameNode: anObject [
+	superclassNameNode := anObject
 ]

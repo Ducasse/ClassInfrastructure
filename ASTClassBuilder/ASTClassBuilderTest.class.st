@@ -83,7 +83,6 @@ ASTClassBuilderTest >> testCreateImmediateClassWithAll [
 		buildEnvironment: self environment;
 		buildFromAST: ast;
 		build.
-		
 	self assert: class isImmediateClass.
 	self assert:	class name equals: #TestSubClass	.
 	self assert: class instanceVariablesString equals: ''.
@@ -416,4 +415,5 @@ ASTClassBuilderTest >> testUseUndefinedClass [
 					buildFromAST: ast
 			 ].
 
+self assert: [ (ShSmalltalkGlobalsEnvironment new classNamed: #PoPouet) isUndefined]
 ]
