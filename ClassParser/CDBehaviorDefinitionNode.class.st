@@ -58,6 +58,13 @@ CDBehaviorDefinitionNode >> classNameNode: aNode astNode: astNode [
 	self addChild: aNode
 ]
 
+{ #category : #accessing }
+CDBehaviorDefinitionNode >> existingClassIfAbsent: aBlock [
+
+	className := self classDefinitionNode className.
+	^originalNode methodNode compilationContext environment classNamed: className
+]
+
 { #category : #'initialize-release' }
 CDBehaviorDefinitionNode >> initialize [
 	super initialize.

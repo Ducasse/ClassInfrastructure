@@ -84,13 +84,11 @@ CDSlotNode >> isUndeclared [
 
 { #category : #testing }
 CDSlotNode >> isVariable [
-	| className classBinding |
-	className := self classDefinitionNode className.
-	classBinding := node methodNode compilationContext environment bindingOf: className.
-	classBinding ifNil: [ 
+	| className classBinding existingClass |
+	existingClass := self classDefinitionNode existingClassIfAbsent: [   
 		"Until class will be created the variables does not exist yet" 
 		^false ].
-	^classBinding value 
+	^existingClass 
 		slotNamed: name asSymbol 
 		ifFound: [true] 
 		ifNone: [
