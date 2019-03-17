@@ -1,45 +1,45 @@
 Class {
-	#name : #CDClassParserTest,
+	#name : #CDClassDefinitionParserTest,
 	#superclass : #CDBehaviorParserTest,
 	#category : #'ClassParser-Test'
 }
 
 { #category : #testing }
-CDClassParserTest class >> isAbstract [
-	^ self == CDClassParserTest
+CDClassDefinitionParserTest class >> isAbstract [
+	^ self == CDClassDefinitionParserTest
 ]
 
 { #category : #helpers }
-CDClassParserTest >> firstClassVariableIndex [
+CDClassDefinitionParserTest >> firstClassVariableIndex [
 
 	^ self classDefinitionString findString: self firstClassVariableName
 ]
 
 { #category : #helpers }
-CDClassParserTest >> firstClassVariableName [
+CDClassDefinitionParserTest >> firstClassVariableName [
 
 	^ 'firstClass'
 ]
 
 { #category : #tests }
-CDClassParserTest >> packageName [
+CDClassDefinitionParserTest >> packageName [
 	^  #MyPackage
 ]
 
 { #category : #helpers }
-CDClassParserTest >> secondClassVariableName [
+CDClassDefinitionParserTest >> secondClassVariableName [
 
 	^ 'secondClass'
 ]
 
 { #category : #helpers }
-CDClassParserTest >> superclassName [
+CDClassDefinitionParserTest >> superclassName [
 
 	^ 'TheSuperClass'
 ]
 
 { #category : #tests }
-CDClassParserTest >> testBestNodeForClassVariableSelectionShouldBeClassSlotNode [
+CDClassDefinitionParserTest >> testBestNodeForClassVariableSelectionShouldBeClassSlotNode [
 
 	| selectedNode selection |	
 	selection := self selectionOf: self firstClassVariableName.
@@ -49,7 +49,7 @@ CDClassParserTest >> testBestNodeForClassVariableSelectionShouldBeClassSlotNode 
 ]
 
 { #category : #tests }
-CDClassParserTest >> testBestNodeForSuperclassSelectionShouldBeSuperclassNameNode [
+CDClassDefinitionParserTest >> testBestNodeForSuperclassSelectionShouldBeSuperclassNameNode [
 
 	| selectedNode selection |
 	selection := self selectionOf: self superclassName.
@@ -59,45 +59,45 @@ CDClassParserTest >> testBestNodeForSuperclassSelectionShouldBeSuperclassNameNod
 ]
 
 { #category : #tests }
-CDClassParserTest >> testClassDefinitionFromLegacyClassDefinitionStringHasClassNameNode [
+CDClassDefinitionParserTest >> testClassDefFromLegacyStringHasClassNameNode [
 
 	self assert: classDefinition classNameNode value equals: self className.
 ]
 
 { #category : #tests }
-CDClassParserTest >> testClassDefinitionFromLegacyClassDefinitionStringHasClassSlots [
+CDClassDefinitionParserTest >> testClassDefFromLegacyStringHasClassSlots [
 
 	self assert: classDefinition sharedSlotNodes first name equals: self firstClassVariableName.
 	self assert: classDefinition sharedSlotNodes second name equals: self secondClassVariableName.
 ]
 
 { #category : #tests }
-CDClassParserTest >> testClassDefinitionFromLegacyClassDefinitionStringHasPackageName [
+CDClassDefinitionParserTest >> testClassDefFromLegacyStringHasPackageName [
 
 	self assert: classDefinition packageName equals: self packageName
 ]
 
 { #category : #tests }
-CDClassParserTest >> testClassDefinitionFromLegacyClassDefinitionStringHasPackageNameNode [
+CDClassDefinitionParserTest >> testClassDefFromLegacyStringHasPackageNameNode [
 
 	self assert: classDefinition packageNameNode value equals: self packageName
 ]
 
 { #category : #tests }
-CDClassParserTest >> testClassDefinitionFromLegacyClassDefinitionStringHasSharedSlots [
+CDClassDefinitionParserTest >> testClassDefFromLegacyStringHasSharedSlots [
 
 	self assert: classDefinition sharedSlots first name equals: self firstClassVariableName.
 	self assert: classDefinition sharedSlots second name equals: self secondClassVariableName.
 ]
 
 { #category : #tests }
-CDClassParserTest >> testClassDefinitionFromLegacyClassDefinitionStringHasSuperclassName [
+CDClassDefinitionParserTest >> testClassDefFromLegacyStringHasSuperclassName [
 
 	self assert: classDefinition superclassName equals: self superclassName.
 ]
 
 { #category : #tests }
-CDClassParserTest >> testClassDefinitionFromLegacyClassDefinitionStringHasSuperclassNameNode [
+CDClassDefinitionParserTest >> testClassDefFromLegacyStringHasSuperclassNameNode [
 
 	self assert: classDefinition superclassNameNode name equals: self superclassName.
 ]

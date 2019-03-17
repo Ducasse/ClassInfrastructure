@@ -1,6 +1,6 @@
 Class {
 	#name : #CDPointClassParserTest,
-	#superclass : #CDClassParserTest,
+	#superclass : #CDClassDefinitionParserTest,
 	#category : #'ClassParser-Test'
 }
 
@@ -55,7 +55,7 @@ CDPointClassParserTest >> superclassName [
 ]
 
 { #category : #tests }
-CDPointClassParserTest >> testClassDefinitionFromLegacyClassDefinitionStringHasSlots [
+CDPointClassParserTest >> testClassDefFromLegacyStringHasSlots [
 	
 	self assert: classDefinition slotNodes first name equals: self firstInstanceVariableName.
 	self assert: classDefinition slotNodes second name equals: self secondInstanceVariableName.

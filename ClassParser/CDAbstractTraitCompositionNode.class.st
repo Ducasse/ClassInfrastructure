@@ -1,3 +1,7 @@
+"
+Traits (unit of methods) can be composed out of other traits using + between traits, - to exclude a method and an alias @ to give another name to a method (this is not a rename just an alias).
+I'm the common superclass for all the implied nodes.
+"
 Class {
 	#name : #CDAbstractTraitCompositionNode,
 	#superclass : #CDNode,

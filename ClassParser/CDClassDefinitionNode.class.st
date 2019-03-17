@@ -67,7 +67,7 @@ CDClassDefinitionNode >> sharedSlotNodes [
 CDClassDefinitionNode >> sharedSlots [
 	
 	sharedSlotNodes ifNil: [ 
-		sharedSlotNodes := definitionExpressionTree arguments third value substrings collect: [ :each | each asClassVariable ] ].
+		sharedSlotNodes := originalNode arguments third value substrings collect: [ :each | each asClassVariable ] ].
 	^ sharedSlotNodes
 ]
 

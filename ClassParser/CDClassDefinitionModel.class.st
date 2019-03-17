@@ -28,5 +28,5 @@ CDClassDefinitionModel >> code: aString [
 { #category : #compatibility }
 CDClassDefinitionModel >> selectedMessage [
 	
-	^ CDClassParser parse: code
+	^ CDClassDefinitionParser parse: code
 ]

@@ -1,3 +1,6 @@
+"
+I contain the methods shared between class and meta class definition.
+"
 Class {
 	#name : #CDBehaviorDefinitionNode,
 	#superclass : #CDNode,
