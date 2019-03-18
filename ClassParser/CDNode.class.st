@@ -99,16 +99,19 @@ CDNode >> intersectsInterval: anInterval [
 
 { #category : #testing }
 CDNode >> isMessage [
+	"To be polymorphic to RB method nodes"
 	^false
 ]
 
 { #category : #testing }
 CDNode >> isMethod [ 	
+	"To be polymorphic to RB method nodes"
 	^false
 ]
 
 { #category : #testing }
 CDNode >> isVariable [
+	"To be polymorphic to RB method nodes"
 	^false
 ]
 
