@@ -21,3 +21,11 @@ CDExistingClassSideDefinitionTest >> secondInstanceVariableName [
 
 	^ 'classSideVar2'
 ]
+
+{ #category : #helpers }
+CDExistingClassSideDefinitionTest >> testGettingExistingClass [
+	
+	| class |
+	class := classDefinition existingClassIfAbsent: [].
+	self assert: class equals: CDClassWithFullDefinitionExample class
+]

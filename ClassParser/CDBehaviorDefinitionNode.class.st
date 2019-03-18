@@ -61,8 +61,7 @@ CDBehaviorDefinitionNode >> classNameNode: aNode astNode: astNode [
 { #category : #accessing }
 CDBehaviorDefinitionNode >> existingClassIfAbsent: aBlock [
 
-	className := self classDefinitionNode className.
-	^originalNode methodNode compilationContext environment classNamed: className
+	^self classNameNode existingClassIfAbsent: aBlock
 ]
 
 { #category : #'initialize-release' }
@@ -96,7 +95,7 @@ CDBehaviorDefinitionNode >> isNormal [
 ]
 
 { #category : #testing }
-CDBehaviorDefinitionNode >> isVariable [
+CDBehaviorDefinitionNode >> isVariableClass [
 	
 	^ classKind = #variableSubclass:
 ]

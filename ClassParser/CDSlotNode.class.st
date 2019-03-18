@@ -25,24 +25,9 @@ CDSlotNode class >> node: aNode name: aName typeName: aTypeName start: start sto
 		yourself
 ]
 
-{ #category : #'as yet unclassified' }
-CDSlotNode >> asCalypsoVariableOf: aClass [ 
-	
-	| className classBinding actualClass |
-	className := self classDefinitionNode className.
-	classBinding := node methodNode compilationContext environment bindingOf: className.
-	classBinding ifNil: [ ^self error: 'Class not exists yet' ].
-	actualClass := classBinding value.
-	^actualClass 
-		slotNamed: name asSymbol 
-		ifFound: [:aSlot | 
-			^ClyInstanceVariable on: aSlot definedIn: actualClass] 
-		ifNone: [self error: 'Slot is not created yet']
-]
-
 { #category : #accessing }
 CDSlotNode >> binding [
-	
+	"To be polymorphic to RB method nodes"
 	^self
 ]
 
@@ -54,37 +39,44 @@ CDSlotNode >> index: anInteger [
 
 { #category : #testing }
 CDSlotNode >> isClassVariable [
+	"To be polymorphic to RB method nodes"
 	^false
 ]
 
 { #category : #testing }
 CDSlotNode >> isGlobalVariable [
+	"To be polymorphic to RB method nodes"
 	^false
 ]
 
 { #category : #testing }
 CDSlotNode >> isInstance [
+	"To be polymorphic to RB method nodes"
 	^true
 ]
 
 { #category : #testing }
 CDSlotNode >> isLiteralVariable [
+	"To be polymorphic to RB method nodes"
 	^false
 ]
 
 { #category : #testing }
 CDSlotNode >> isTemp [
+	"To be polymorphic to RB method nodes"
 	^false
 ]
 
 { #category : #testing }
 CDSlotNode >> isUndeclared [
+	"To be polymorphic to RB method nodes"
 	^false
 ]
 
 { #category : #testing }
 CDSlotNode >> isVariable [
-	| className classBinding existingClass |
+	"To be polymorphic to RB method nodes"
+	| existingClass |
 	existingClass := self classDefinitionNode existingClassIfAbsent: [   
 		"Until class will be created the variables does not exist yet" 
 		^false ].
