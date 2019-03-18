@@ -35,7 +35,7 @@ CDClassDefinitionNode >> isClassDefinition [
 { #category : #accessing }
 CDClassDefinitionNode >> packageName [
 	
-	^ packageNameNode value asSymbol 
+	^ packageNameNode ifNotNil: [packageNameNode value asSymbol ]
 ]
 
 { #category : #accessing }
@@ -52,6 +52,12 @@ CDClassDefinitionNode >> packageNameNode: aNode astNode: astNode [
 ]
 
 { #category : #accessing }
+CDClassDefinitionNode >> sharedPools [
+	sharedPools ifNil: [ self sharedPools: OrderedCollection new. ].
+	^sharedPools
+]
+
+{ #category : #accessing }
 CDClassDefinitionNode >> sharedPools: aCollection [ 
 	sharedPools := aCollection.
 	children addAll: aCollection
@@ -65,9 +71,9 @@ CDClassDefinitionNode >> sharedSlotNodes [
 
 { #category : #accessing }
 CDClassDefinitionNode >> sharedSlots [
-	
-	sharedSlotNodes ifNil: [ 
-		sharedSlotNodes := originalNode arguments third value substrings collect: [ :each | each asClassVariable ] ].
+	sharedSlotNodes ifNil:[
+		sharedSlotNodes := Array new.
+		].
 	^ sharedSlotNodes
 ]
 
@@ -84,6 +90,11 @@ CDClassDefinitionNode >> superclassName [
 ]
 
 { #category : #accessing }
+CDClassDefinitionNode >> superclassName: aString [
+	superclassName := aString
+]
+
+{ #category : #accessing }
 CDClassDefinitionNode >> superclassName: aName astNode: astNode [
 	
 	superclassName := aName.
@@ -95,4 +106,9 @@ CDClassDefinitionNode >> superclassName: aName astNode: astNode [
 CDClassDefinitionNode >> superclassNameNode [
 	
 	^ superclassNameNode
+]
+
+{ #category : #accessing }
+CDClassDefinitionNode >> superclassNameNode: anObject [
+	superclassNameNode := anObject
 ]

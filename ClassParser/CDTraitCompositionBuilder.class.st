@@ -17,6 +17,14 @@ CDTraitCompositionBuilder >> visitArrayNode: aRBArrayNode [
 		each isLiteralNode
 			ifTrue: [ each value ]
 			ifFalse: [ each receiver value -> each arguments first value ] ]
+		
+		
+]
+
+{ #category : #visiting }
+CDTraitCompositionBuilder >> visitGlobalNode: aRBGlobalNode [ 
+	
+	^self visitVariableNode: aRBGlobalNode
 ]
 
 { #category : #visiting }

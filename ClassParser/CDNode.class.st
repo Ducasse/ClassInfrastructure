@@ -90,10 +90,24 @@ CDNode >> intersectsInterval: anInterval [
 		or: [self start between: anInterval first and: anInterval last]
 ]
 
+{ #category : #'as yet unclassified' }
+CDNode >> originalNode [
+
+	^originalNode.
+	
+]
+
 { #category : #accessing }
 CDNode >> originalNode: aNode [
 
 	originalNode := aNode
+]
+
+{ #category : #accessing }
+CDNode >> originalNodeSource [
+
+	^originalNode source.
+	
 ]
 
 { #category : #selection }

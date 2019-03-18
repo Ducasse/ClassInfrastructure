@@ -70,12 +70,11 @@ Seaside3LoadingTest >> loadSeasidePackagesInRandomOrder [
 
 	"disable some MC stuff before loading"
 	MCMethodDefinition initializersEnabled: false.
-     MCPackageLoader doNotWarnAboutDepencies.
 	
 	"load all packages"
 	shuffledPackagesToLoad := self seasidePackagesToLoad shuffle.
 	shuffledPackagesToLoad do: [ :p |
-		self loadPackageVersion: p name from: p value.
+		[self loadPackageVersion: p name from: p value] on: Warning do: #resume.
 		maxNumerOfUndefinedClasses := UndefinedClass allSubclasses size max:  maxNumerOfUndefinedClasses ].
 	
 	^  maxNumerOfUndefinedClasses
@@ -103,6 +102,13 @@ Seaside3LoadingTest >> refreshDirtyMCPackages [
 		 	p modified: false
 			]
 		]
+]
+
+{ #category : #accessing }
+Seaside3LoadingTest >> runCaseManaged [
+	"work around the time out mechanism (long running test) "
+
+	^ self runCase
 ]
 
 { #category : #accessing }
