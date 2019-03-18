@@ -37,6 +37,11 @@ CDAbstractTraitCompositionNode >> isTraitComposition [
 	^ true
 ]
 
+{ #category : #testing }
+CDAbstractTraitCompositionNode >> isTraitNode [
+	^false
+]
+
 { #category : #selection }
 CDAbstractTraitCompositionNode >> start [
 	

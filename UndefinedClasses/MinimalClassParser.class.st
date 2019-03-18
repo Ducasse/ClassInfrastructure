@@ -1,6 +1,5 @@
 "
-Unclear if we will keep it. 
-This minimal class parser is just to make sure that we do not need the full parser to manage undefinedClasses.
+I am a parser in use for generating an AST of classes from a string
 "
 Class {
 	#name : #MinimalClassParser,

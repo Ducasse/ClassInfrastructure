@@ -38,6 +38,11 @@ CDBehaviorDefinitionNode >> className [
 ]
 
 { #category : #accessing }
+CDBehaviorDefinitionNode >> className: aClassName [
+	className := aClassName
+]
+
+{ #category : #accessing }
 CDBehaviorDefinitionNode >> className: aName astNode: astNode [
 
 	className := aName.
@@ -49,6 +54,11 @@ CDBehaviorDefinitionNode >> className: aName astNode: astNode [
 CDBehaviorDefinitionNode >> classNameNode [
 	
 	^ classNameNode
+]
+
+{ #category : #accessing }
+CDBehaviorDefinitionNode >> classNameNode: aClassNameNode [
+	classNameNode := aClassNameNode
 ]
 
 { #category : #accessing }
@@ -130,6 +140,12 @@ CDBehaviorDefinitionNode >> slots: aCollection [
 	slotNodes := aCollection.
 	aCollection do: [ :each | self addChild: each ]
 	
+]
+
+{ #category : #'as yet unclassified' }
+CDBehaviorDefinitionNode >> traitDefinition [
+
+	^traitDefinition
 ]
 
 { #category : #accessing }

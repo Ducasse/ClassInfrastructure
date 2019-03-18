@@ -62,7 +62,7 @@ UndefinedClassTest >> testCreateSubclassOfArbitraryExpressionReturningNilThrowsE
 ]
 
 { #category : #tests }
-UndefinedClassTest >> testCreateSubclassOfNilCreatesSubclassOfProtoObject [
+UndefinedClassTest >> testCreateSubclassOfNilCreatesSubclassOfObject [
 
 	self assertClassDoesNotExist: #ColoredFoo.
 
@@ -72,7 +72,7 @@ UndefinedClassTest >> testCreateSubclassOfNilCreatesSubclassOfProtoObject [
 		package: ''Box'''.
 	
 	self assertClassExist: #ColoredFoo.
-	self assert: (self class environment at: #ColoredFoo) superclass equals: ProtoObject.
+	self assert: (self class environment at: #ColoredFoo) superclass equals: Object.
 ]
 
 { #category : #tests }
@@ -95,6 +95,7 @@ UndefinedClassTest >> testCreateUndefinedClassShouldCreateNewClassThatIsIndefine
 	UndefinedClass createUndefinedClassNamed: #Foo package: #Foo.
 	
 	self assertClassExist: #Foo.
+	self assert: [(ShSmalltalkGlobalsEnvironment new classNamed:#Foo) isUndefined]
 ]
 
 { #category : #tests }
@@ -113,6 +114,21 @@ UndefinedClassTest >> testInstallClassNameWithUnknownSuperclassName [
 	self assertClassExist: #ColoredFoo.
 	self assert: (self class environment at: #ColoredFoo) superclass equals: (self class environment at: #Foo).
 	self assert: (self class environment at: #Foo) isUndefined.
+	
+]
+
+{ #category : #tests }
+UndefinedClassTest >> testRemoveUndefinedClassShouldRemoveIt [
+	self assertClassDoesNotExist: #Foo.
+
+	UndefinedClass createUndefinedClassNamed: #Foo package: #Foo.
+	
+	self assertClassExist: #Foo.
+	self assert: [(ShSmalltalkGlobalsEnvironment new classNamed:#Foo) isUndefined].
+	
+	(ShSmalltalkGlobalsEnvironment new classNamed:#Foo) removeFromSystem.
+	
+	self assertClassDoesNotExist: #Foo.
 ]
 
 { #category : #tests }

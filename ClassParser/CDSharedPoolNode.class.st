@@ -20,6 +20,11 @@ CDSharedPoolNode class >> node: aRBLiteralValueNode name: aString start: anInteg
 ]
 
 { #category : #accessing }
+CDSharedPoolNode >> name [
+	^name 
+]
+
+{ #category : #accessing }
 CDSharedPoolNode >> name: aString [ 
 	name := aString
 ]

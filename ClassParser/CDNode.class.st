@@ -1,10 +1,10 @@
 "
-I'm the common superclass of all the class definition nodes. 
-A class definition is an object that is built out of the message sent to a class by the class definition parser. 
+I'm the common superclass of all the class definition nodes.
+A class definition is an object that is built out of the message sent to a class by the class definition parser.
 
-I keep a reference to the original method node (originalNode) I'm created from. 
+I keep a reference to the original method node (originalNode) I'm created from.
 
-Please note the vocabulary, we use the term class definition and class definition parser to refer to the class definition only and not the class with its methods. 
+Please note the vocabulary, we use the term class definition and class definition parser to refer to the class definition only and not the class with its methods.
 "
 Class {
 	#name : #CDNode,
@@ -18,8 +18,8 @@ Class {
 }
 
 { #category : #'instance-creation' }
-CDNode class >> on: aRBMessageNode [ 
-	
+CDNode class >> on: aRBMessageNode [
+
 	^ self new
 		originalNode: aRBMessageNode;
 		yourself
@@ -27,7 +27,7 @@ CDNode class >> on: aRBMessageNode [
 
 { #category : #accessing }
 CDNode >> addChild: aChild [
-	
+
 	children add: aChild.
 	aChild parent: self
 ]
@@ -39,13 +39,13 @@ CDNode >> ast [
 ]
 
 { #category : #selection }
-CDNode >> bestNodeFor: anInterval [ 
+CDNode >> bestNodeFor: anInterval [
 	| selectedChildren |
 	(self intersectsInterval: anInterval) ifFalse: [^nil].
 	(self containedBy: anInterval) ifTrue: [^self].
-	selectedChildren := self children 
+	selectedChildren := self children
 				select: [:each | each intersectsInterval: anInterval].
-	^selectedChildren size == 1 
+	^selectedChildren size == 1
 		ifTrue: [selectedChildren first bestNodeFor: anInterval]
 		ifFalse: [self]
 ]
@@ -62,25 +62,25 @@ CDNode >> classDefinitionNode [
 ]
 
 { #category : #selection }
-CDNode >> containedBy: anInterval [ 
+CDNode >> containedBy: anInterval [
 	^anInterval first <= self start and: [anInterval last >= self stop]
 ]
 
 { #category : #compatibility }
 CDNode >> hasBreakpoint [
-	
+
 	^ false
 ]
 
 { #category : #compatibility }
 CDNode >> hasExecutionCounter [
-	
+
 	^ false
 ]
 
 { #category : #compatibility }
 CDNode >> hasWatchpoint [
-	
+
 	^ false
 ]
 
@@ -92,8 +92,8 @@ CDNode >> initialize [
 ]
 
 { #category : #selection }
-CDNode >> intersectsInterval: anInterval [ 
-	^(anInterval first between: self start and: self stop) 
+CDNode >> intersectsInterval: anInterval [
+	^(anInterval first between: self start and: self stop)
 		or: [self start between: anInterval first and: anInterval last]
 ]
 
@@ -104,7 +104,7 @@ CDNode >> isMessage [
 ]
 
 { #category : #testing }
-CDNode >> isMethod [ 	
+CDNode >> isMethod [
 	"To be polymorphic to RB method nodes"
 	^false
 ]
@@ -115,6 +115,12 @@ CDNode >> isVariable [
 	^false
 ]
 
+{ #category : #'as yet unclassified' }
+CDNode >> originalNode [
+
+	^originalNode.
+]
+
 { #category : #accessing }
 CDNode >> originalNode: aNode [
 
@@ -122,6 +128,11 @@ CDNode >> originalNode: aNode [
 ]
 
 { #category : #accessing }
+CDNode >> originalNodeSource [
+
+	^originalNode source.
+]
+
 CDNode >> parent [
 	^ parent
 ]
@@ -134,17 +145,16 @@ CDNode >> parent: anObject [
 { #category : #accessing }
 CDNode >> sourceInterval [
 	^originalNode sourceInterval
-]
 
 { #category : #selection }
 CDNode >> start [
-	
+
 	^ originalNode start
 ]
 
 { #category : #selection }
 CDNode >> stop [
-	
+
 	^ originalNode stop
 ]
 

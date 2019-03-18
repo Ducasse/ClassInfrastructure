@@ -1,10 +1,12 @@
 "
-A simple API to get the system working for now. 
-Should be removed in the future. 
+I am a parser for generating an AST of classes from a string, i am only used in tests for the moment
 "
 Class {
 	#name : #CodeParser,
 	#superclass : #Object,
+	#instVars : [
+		'originalString'
+	],
 	#category : #'UndefinedClasses-Core'
 }
 

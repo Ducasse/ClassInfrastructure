@@ -1,5 +1,5 @@
 "
-I'm raised when an undefined class (often subclass of UndefinedClass) is trying to get instances created or when a message not understood is raised. 
+I'm an error signaled when an UndefinedClass received an unknown message or try to initialie instance
 "
 Class {
 	#name : #UndefinedClassError,
