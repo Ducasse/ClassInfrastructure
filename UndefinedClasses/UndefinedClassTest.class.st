@@ -95,6 +95,7 @@ UndefinedClassTest >> testCreateUndefinedClassShouldCreateNewClassThatIsIndefine
 	UndefinedClass createUndefinedClassNamed: #Foo package: #Foo.
 	
 	self assertClassExist: #Foo.
+	self assert: [(ShSmalltalkGlobalsEnvironment new classNamed:#Foo) isUndefined]
 ]
 
 { #category : #tests }
@@ -114,6 +115,20 @@ UndefinedClassTest >> testInstallClassNameWithUnknownSuperclassName [
 	self assert: (self class environment at: #ColoredFoo) superclass equals: (self class environment at: #Foo).
 	self assert: (self class environment at: #Foo) isUndefined.
 	
+]
+
+{ #category : #tests }
+UndefinedClassTest >> testRemoveUndefinedClassShouldRemoveIt [
+	self assertClassDoesNotExist: #Foo.
+
+	UndefinedClass createUndefinedClassNamed: #Foo package: #Foo.
+	
+	self assertClassExist: #Foo.
+	self assert: [(ShSmalltalkGlobalsEnvironment new classNamed:#Foo) isUndefined].
+	
+	(ShSmalltalkGlobalsEnvironment new classNamed:#Foo) removeFromSystem.
+	
+	self assertClassDoesNotExist: #Foo.
 ]
 
 { #category : #tests }
