@@ -145,6 +145,7 @@ CDNode >> parent: anObject [
 { #category : #accessing }
 CDNode >> sourceInterval [
 	^originalNode sourceInterval
+]
 
 { #category : #selection }
 CDNode >> start [
