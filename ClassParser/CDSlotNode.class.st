@@ -31,9 +31,66 @@ CDSlotNode >> asSlot [
 ]
 
 { #category : #accessing }
+CDSlotNode >> binding [
+	"To be polymorphic to RB method nodes"
+	^self
+]
+
+{ #category : #accessing }
 CDSlotNode >> index: anInteger [ 
 	
 	index := anInteger
+]
+
+{ #category : #testing }
+CDSlotNode >> isClassVariable [
+	"To be polymorphic to RB method nodes"
+	^false
+]
+
+{ #category : #testing }
+CDSlotNode >> isGlobalVariable [
+	"To be polymorphic to RB method nodes"
+	^false
+]
+
+{ #category : #testing }
+CDSlotNode >> isInstance [
+	"To be polymorphic to RB method nodes"
+	^true
+]
+
+{ #category : #testing }
+CDSlotNode >> isLiteralVariable [
+	"To be polymorphic to RB method nodes"
+	^false
+]
+
+{ #category : #testing }
+CDSlotNode >> isTemp [
+	"To be polymorphic to RB method nodes"
+	^false
+]
+
+{ #category : #testing }
+CDSlotNode >> isUndeclared [
+	"To be polymorphic to RB method nodes"
+	^false
+]
+
+{ #category : #testing }
+CDSlotNode >> isVariable [
+	"To be polymorphic to RB method nodes"
+	| existingClass |
+	existingClass := self classDefinitionNode existingClassIfAbsent: [   
+		"Until class will be created the variables does not exist yet" 
+		^false ].
+	^existingClass 
+		slotNamed: name asSymbol 
+		ifFound: [true] 
+		ifNone: [
+			"Until class will be compiled with new slot the new slot does not exist yet"
+			false]
 ]
 
 { #category : #accessing }
@@ -63,6 +120,11 @@ CDSlotNode >> printOn: aStream [
 		nextPutAll: ' => ';
 		nextPutAll: typeName;
 		nextPutAll: ')'
+]
+
+{ #category : #accessing }
+CDSlotNode >> sourceInterval [
+	^start to: stop
 ]
 
 { #category : #selection }

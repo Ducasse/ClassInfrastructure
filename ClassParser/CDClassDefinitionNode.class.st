@@ -48,7 +48,7 @@ CDClassDefinitionNode >> packageNameNode [
 CDClassDefinitionNode >> packageNameNode: aNode astNode: astNode [
 
 	packageNameNode := aNode.
-	children add: aNode.
+	self addChild: aNode.
 ]
 
 { #category : #accessing }
@@ -60,7 +60,7 @@ CDClassDefinitionNode >> sharedPools [
 { #category : #accessing }
 CDClassDefinitionNode >> sharedPools: aCollection [ 
 	sharedPools := aCollection.
-	children addAll: aCollection
+	aCollection do: [ :each | self addChild: each ]
 ]
 
 { #category : #accessing }
@@ -80,7 +80,7 @@ CDClassDefinitionNode >> sharedSlots [
 { #category : #accessing }
 CDClassDefinitionNode >> sharedSlots: aCollection [ 
 	sharedSlotNodes := aCollection.
-	children addAll: aCollection
+	aCollection do: [ :each | self addChild: each ]
 ]
 
 { #category : #accessing }
@@ -99,7 +99,7 @@ CDClassDefinitionNode >> superclassName: aName astNode: astNode [
 	
 	superclassName := aName.
 	superclassNameNode := astNode.
-	children add: astNode.
+	self addChild: astNode.
 ]
 
 { #category : #accessing }
